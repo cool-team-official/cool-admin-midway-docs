@@ -1,18 +1,18 @@
 # 扩展插件(plugin)
 
-为了丰富系统功能，我们提供了插件系统，可以通过插件的方式来扩展系统功能。而不用一味地堆功能，导致系统臃肿。你可以自己开发插件，也可以使用别人开发的插件。 或者通过官网[下载插件](/plugin/list.html)。
+为了丰富系统功能，我们提供了插件系统，可以通过插件的方式来扩展系统功能。而不用一味地堆功能，导致系统臃肿。你可以自己开发插件，也可以使用别人开发的插件。 或者通过官网[下载插件](https://cool-js.com/plugin/list.html)。
 
 ## 视频教程
 
--   [1、插件开发](https://www.bilibili.com/video/BV1aa4y187jh/)
+- [1、插件开发](https://www.bilibili.com/video/BV1aa4y187jh/)
 
--   [2、插件发布与使用](https://www.bilibili.com/video/BV1mw41157bx/)
+- [2、插件发布与使用](https://www.bilibili.com/video/BV1mw41157bx/)
 
 ## 使用插件
 
 ### 1、安装
 
-首先下载插件包，然后在系统中安装插件包。插件包可以通过官网[下载插件](/plugin/list.html)。
+首先下载插件包，然后在系统中安装插件包。插件包可以通过官网[下载插件](https://cool-js.com/plugin/list.html)。
 
 打开后台管理系统，点击左侧菜单`扩展管理`->`插件管理`，点击`+`按钮，选择插件包进行安装。
 
@@ -32,16 +32,16 @@ import { Get, Inject } from "@midwayjs/core";
  */
 @CoolController()
 export class OpenDemoPluginController extends BaseController {
-	// 注入插件服务
-	@Inject()
-	pluginService: PluginService;
+  // 注入插件服务
+  @Inject()
+  pluginService: PluginService;
 
-	@Get("/invoke", { summary: "调用插件" })
-	async invoke() {
-		// test 是插件的标识， show 是插件的方法， 1,2 是传给插件的参数
-		const result = await this.pluginService.invoke("test", "show", 1, 2);
-		return this.ok(result);
-	}
+  @Get("/invoke", { summary: "调用插件" })
+  async invoke() {
+    // test 是插件的标识， show 是插件的方法， 1,2 是传给插件的参数
+    const result = await this.pluginService.invoke("test", "show", 1, 2);
+    return this.ok(result);
+  }
 }
 ```
 
@@ -65,9 +65,9 @@ export class OpenDemoPluginController extends BaseController {
 
 ```json
 {
-	"appId": "xxxxx",
-	"appSecret": "xxxxx",
-	"filePath": "@baseDir/xxx.txt"
+  "appId": "xxxxx",
+  "appSecret": "xxxxx",
+  "filePath": "@baseDir/xxx.txt"
 }
 ```
 
@@ -79,19 +79,19 @@ export class OpenDemoPluginController extends BaseController {
 
 ```json
 {
-	"@local": {
-		"appId": "xxxxx",
-		"appSecret": "xxxxx"
-	},
-	"@prod": {
-		"appId": "xxxxx",
-		"appSecret": "xxxxx"
-	}
+  "@local": {
+    "appId": "xxxxx",
+    "appSecret": "xxxxx"
+  },
+  "@prod": {
+    "appId": "xxxxx",
+    "appSecret": "xxxxx"
+  }
 }
 ```
 
--   @local 表示本地环境
--   @prod 表示生产环境
+- @local 表示本地环境
+- @prod 表示生产环境
 
 ### 4、事件
 
@@ -106,13 +106,13 @@ import { EVENT_PLUGIN_READY } from "../../plugin/service/center";
  */
 @CoolEvent()
 export class PluginEvent {
-	/**
-	 * 插件已就绪
-	 */
-	@Event(EVENT_PLUGIN_READY)
-	async onPluginReady() {
-		// 这边写上你要处理的逻辑，例如：初始化插件(有一些插件需要初始化)
-	}
+  /**
+   * 插件已就绪
+   */
+  @Event(EVENT_PLUGIN_READY)
+  async onPluginReady() {
+    // 这边写上你要处理的逻辑，例如：初始化插件(有一些插件需要初始化)
+  }
 }
 ```
 
@@ -167,23 +167,23 @@ git clone https://gitee.com/cool-team-official/cool-admin-midway-plugin.git
 
 ### 3、开发过程
 
--   配置插件信息(plugin.json)
+- 配置插件信息(plugin.json)
 
 ```json
 {
-	"name": "测试",
-	"key": "test",
-	"hook": "",
-	"singleton": false,
-	"version": "1.0.0",
-	"description": "插件描述",
-	"author": "作者",
-	"logo": "assets/logo.png",
-	"readme": "README.md",
-	"config": {
-		"appId": "xxxxx",
-		"filePath": "@baseDir/xxx.txt"
-	}
+  "name": "测试",
+  "key": "test",
+  "hook": "",
+  "singleton": false,
+  "version": "1.0.0",
+  "description": "插件描述",
+  "author": "作者",
+  "logo": "assets/logo.png",
+  "readme": "README.md",
+  "config": {
+    "appId": "xxxxx",
+    "filePath": "@baseDir/xxx.txt"
+  }
 }
 ```
 
@@ -212,7 +212,7 @@ git clone https://gitee.com/cool-team-official/cool-admin-midway-plugin.git
 请谨慎选择是否为单例插件，单例插件里无法获得的请求上下文 ctx ，如果单需要获得当前请求的 ctx，请将在调用的方法中传入 ctx。
 :::
 
--   开发插件功能(src/index.ts)
+- 开发插件功能(src/index.ts)
 
 ```ts
 import { BasePlugin } from "@cool-midway/plugin-cli";
@@ -223,31 +223,31 @@ import "./other";
  * 描述
  */
 export class CoolPlugin extends BasePlugin {
-	/**
-	 * 展示插件信息
-	 * @param a 参数a
-	 * @param b 参数b
-	 * @returns 插件信息
-	 */
-	async show(a, b) {
-		console.log("传参", a, b);
-		return this.pluginInfo;
-	}
+  /**
+   * 展示插件信息
+   * @param a 参数a
+   * @param b 参数b
+   * @returns 插件信息
+   */
+  async show(a, b) {
+    console.log("传参", a, b);
+    return this.pluginInfo;
+  }
 
-	/**
-	 * 请求网络示例
-	 */
-	async demo() {
-		const res = await axios.get("https://www.baidu.com");
-		return res.data;
-	}
+  /**
+   * 请求网络示例
+   */
+  async demo() {
+    const res = await axios.get("https://www.baidu.com");
+    return res.data;
+  }
 }
 
 // 导出插件实例， Plugin名称不可修改
 export const Plugin = CoolPlugin;
 ```
 
--   测试插件(test/index.ts)
+- 测试插件(test/index.ts)
 
 ```ts
 import { Plugin } from "../src/index";
@@ -272,7 +272,7 @@ npm run dev
 npm run test
 ```
 
--   打包发布
+- 打包发布
 
 打包命令
 
@@ -282,7 +282,7 @@ npm run release
 
 执行命令之后如果一切顺利的话你会在`release`目录下得到一个`.cool`后缀的插件包。
 
-这个插件包你可以直接发给其他人安装使用，或者分享到[插件市场](/plugin/list.html)，您的插件将帮助到很多人，我们鼓励您分享您的插件。
+这个插件包你可以直接发给其他人安装使用，或者分享到[插件市场](https://cool-js.com/plugin/list.html)，您的插件将帮助到很多人，我们鼓励您分享您的插件。
 
 ### 4、插件源码
 
@@ -294,17 +294,17 @@ npm run release
 
 ```ts
 export class CoolPlugin extends BasePlugin {
-	// 使用缓存
-	async useCache() {
-		this.cache.set("a", 1);
-		console.log(this.cache.get("a"));
-	}
+  // 使用缓存
+  async useCache() {
+    this.cache.set("a", 1);
+    console.log(this.cache.get("a"));
+  }
 }
 ```
 
 ### 6、生命周期
 
--   插件已就绪
+- 插件已就绪
 
 插件初始化完成之后会触发`ready`方法，可以在这个方法中做一些初始化操作。
 
@@ -314,12 +314,12 @@ import { BasePlugin } from "@cool-midway/plugin-cli";
  * 描述
  */
 export class CoolPlugin extends BasePlugin {
-	/**
-	 * 插件已就绪，注意：单例插件只会执行一次，非单例插件每次调用都会执行
-	 */
-	async ready() {
-		console.log("插件就绪");
-	}
+  /**
+   * 插件已就绪，注意：单例插件只会执行一次，非单例插件每次调用都会执行
+   */
+  async ready() {
+    console.log("插件就绪");
+  }
 }
 
 // 导出插件实例， Plugin名称不可修改
@@ -341,13 +341,13 @@ import { BasePlugin } from "@cool-midway/plugin-cli";
  * 插件实例
  */
 export class CoolPlugin extends BasePlugin {
-	/**
-	 * 调用其他插件
-	 */
-	async usePlugin() {
-		// 获得其他插件，开发的时候无法调试，只有安装到cool-admin中才能调试
-		const plugin = await this.pluginService.getInstance("xxx");
-		console.log(plugin);
-	}
+  /**
+   * 调用其他插件
+   */
+  async usePlugin() {
+    // 获得其他插件，开发的时候无法调试，只有安装到cool-admin中才能调试
+    const plugin = await this.pluginService.getInstance("xxx");
+    console.log(plugin);
+  }
 }
 ```

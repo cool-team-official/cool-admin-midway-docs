@@ -6,6 +6,10 @@ export default defineConfig({
   description: "一个很酷的后台管理系统开发框架",
   lastUpdated: true,
 
+  markdown: {
+    toc: { level: [1, 2, 3, 4] },
+  },
+
   themeConfig: {
     logo: "/logo.png",
     search: {
@@ -23,6 +27,7 @@ export default defineConfig({
 
     outline: {
       label: "页面导航",
+      level: [2, 3],
     },
     lastUpdated: {
       text: "最后更新于",
@@ -65,7 +70,7 @@ export default defineConfig({
         text: "更多",
         items: [
           {
-            text: "Cool Admin(Nodejs版)",
+            text: "Cool官网",
             link: "https://cool-js.com",
           },
           {

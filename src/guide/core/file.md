@@ -3,13 +3,13 @@
 ::: warning 注意
 以下方式是旧版本的支付方式，不建议使用，新版本已经插件化了，可以直接到插件市场下载对应的插件，插件的使用方式请参考插件市场对应插件的文档
 
-[阿里云 OSS 插件](/plugin/detail.html?id=24)
+[阿里云 OSS 插件](https://cool-js.com/plugin/detail.html?id=36)
 
-[腾讯云 COS 插件](/plugin/detail.html?id=25)
+[腾讯云 COS 插件](https://cool-js.com/plugin/detail.html?id=37)
 
-[七牛云 QINIU 插件](/plugin/detail.html?id=26)
+[七牛云 QINIU 插件](https://cool-js.com/plugin/detail.html?id=38)
 
-[亚马逊云 AWS s3 插件](/plugin/detail.html?id=27)
+[亚马逊云 AWS s3 插件](https://cool-js.com/plugin/detail.html?id=39)
 :::
 
 新版本本地文件上传前缀地址配置位于 `src/modules/plugin/config.ts`，如果有安装云存储插件，本地上传会自动切换为云存储上传
@@ -19,26 +19,26 @@
  * 模块配置
  */
 export default (options) => {
-	return {
-		// 模块名称
-		name: "插件模块",
-		// 模块描述
-		description: "插件查看、安装、卸载、配置等",
-		// 中间件，只对本模块有效
-		middlewares: [],
-		// 中间件，全局有效
-		globalMiddlewares: [],
-		// 模块加载顺序，默认为0，值越大越优先加载
-		order: 0,
-		// 基础插件配置
-		hooks: {
-			// 文件上传
-			upload: {
-				// 地址前缀
-				domain: `http://127.0.0.1:${options?.app?.getConfig("koa.port")}`
-			}
-		}
-	} as ModuleConfig;
+  return {
+    // 模块名称
+    name: "插件模块",
+    // 模块描述
+    description: "插件查看、安装、卸载、配置等",
+    // 中间件，只对本模块有效
+    middlewares: [],
+    // 中间件，全局有效
+    globalMiddlewares: [],
+    // 模块加载顺序，默认为0，值越大越优先加载
+    order: 0,
+    // 基础插件配置
+    hooks: {
+      // 文件上传
+      upload: {
+        // 地址前缀
+        domain: `http://127.0.0.1:${options?.app?.getConfig("koa.port")}`,
+      },
+    },
+  } as ModuleConfig;
 };
 ```
 
@@ -50,21 +50,21 @@ export default (options) => {
 
 文件上传基于[midwayjs 文件上传](http://www.midwayjs.org/docs/extensions/upload)，[midwayjs 文件上传](http://www.midwayjs.org/docs/extensions/upload)提供了多种形式的上传方式如：[阿里云 oss](http://www.midwayjs.org/docs/extensions/oss)、[腾讯云 cos](http://www.midwayjs.org/docs/extensions/cos)等，为了更好地与前端配合，cool-admin 封装了四种上传方式
 
--   本地文件上传；
--   阿里云 OSS 前端直传；
--   腾讯云 COS 前端直传；
--   七牛云 QINIU 前端直传；
--   亚马逊云 AWS s3 前端直传；
+- 本地文件上传；
+- 阿里云 OSS 前端直传；
+- 腾讯云 COS 前端直传；
+- 七牛云 QINIU 前端直传；
+- 亚马逊云 AWS s3 前端直传；
 
 ::: tip 提示
 框架默认为本地上传，但是我们并不推荐这种形式，条件允许尽量使用云存储，使用云存储有多种好处：
 
--   动静分离，不占用服务带宽；
--   便于分布式部署；
--   方便的功能，如大小图、打水印等；
--   有利于安全；
--   ...
-    :::
+- 动静分离，不占用服务带宽；
+- 便于分布式部署；
+- 方便的功能，如大小图、打水印等；
+- 有利于安全；
+- ...
+  :::
 
 ## 配置插件
 
@@ -96,14 +96,14 @@ import { join } from "path";
 import * as file from "@cool-midway/file";
 
 @Configuration({
-	imports: [file],
-	importConfigs: [join(__dirname, "./config")]
+  imports: [file],
+  importConfigs: [join(__dirname, "./config")],
 })
 export class ContainerLifeCycle {
-	@App()
-	app: koa.Application;
+  @App()
+  app: koa.Application;
 
-	async onReady() {}
+  async onReady() {}
 }
 ```
 
@@ -123,16 +123,16 @@ import { CoolFile } from "@cool-midway/file";
 @Provide()
 @CoolController()
 export class AppDemoFileController extends BaseController {
-	@Inject()
-	ctx: Context;
+  @Inject()
+  ctx: Context;
 
-	@Inject()
-	file: CoolFile;
+  @Inject()
+  file: CoolFile;
 
-	@Get("/uploadMode", { summary: "获得上传模式" })
-	async uploadMode() {
-		return this.ok(await this.file.getMode());
-	}
+  @Get("/uploadMode", { summary: "获得上传模式" })
+  async uploadMode() {
+    return this.ok(await this.file.getMode());
+  }
 }
 ```
 
@@ -150,20 +150,20 @@ import { MidwayConfig } from "@midwayjs/core";
 import * as fsStore from "cache-manager-fs-hash";
 
 export default {
-	// 修改成你自己独有的key
-	keys: "cool-admin for node",
-	koa: {
-		port: 8001
-	},
-	// cool配置
-	cool: {
-		file: {
-			// 上传模式 本地上传或云存储
-			mode: MODETYPE.LOCAL,
-			// 本地上传 文件地址前缀
-			domain: "http://127.0.0.1:8001"
-		} as CoolFileConfig
-	}
+  // 修改成你自己独有的key
+  keys: "cool-admin for node",
+  koa: {
+    port: 8001,
+  },
+  // cool配置
+  cool: {
+    file: {
+      // 上传模式 本地上传或云存储
+      mode: MODETYPE.LOCAL,
+      // 本地上传 文件地址前缀
+      domain: "http://127.0.0.1:8001",
+    } as CoolFileConfig,
+  },
 } as unknown as MidwayConfig;
 ```
 
@@ -187,16 +187,16 @@ import { CoolFile } from "@cool-midway/file";
 @Provide()
 @CoolController()
 export class AppDemoFileController extends BaseController {
-	@Inject()
-	ctx: Context;
+  @Inject()
+  ctx: Context;
 
-	@Inject()
-	file: CoolFile;
+  @Inject()
+  file: CoolFile;
 
-	@Post("/upload", { summary: "文件上传" })
-	async uplod() {
-		return this.ok(await this.file.upload(this.ctx));
-	}
+  @Post("/upload", { summary: "文件上传" })
+  async uplod() {
+    return this.ok(await this.file.upload(this.ctx));
+  }
 }
 ```
 
@@ -214,25 +214,25 @@ import { MidwayConfig } from "@midwayjs/core";
 import * as fsStore from "cache-manager-fs-hash";
 
 export default {
-	// 修改成你自己独有的key
-	keys: "cool-admin for node",
-	koa: {
-		port: 8001
-	},
-	// cool配置
-	cool: {
-		file: {
-			// 上传模式 本地上传或云存储
-			mode: MODETYPE.CLOUD,
-			oss: {
-				accessKeyId: "your access key",
-				accessKeySecret: "your access secret",
-				bucket: "your bucket name",
-				endpoint: "oss-cn-hongkong.aliyuncs.com 换成你自己的",
-				timeout: "3600s"
-			} as OSSConfig
-		} as CoolFileConfig
-	}
+  // 修改成你自己独有的key
+  keys: "cool-admin for node",
+  koa: {
+    port: 8001,
+  },
+  // cool配置
+  cool: {
+    file: {
+      // 上传模式 本地上传或云存储
+      mode: MODETYPE.CLOUD,
+      oss: {
+        accessKeyId: "your access key",
+        accessKeySecret: "your access secret",
+        bucket: "your bucket name",
+        endpoint: "oss-cn-hongkong.aliyuncs.com 换成你自己的",
+        timeout: "3600s",
+      } as OSSConfig,
+    } as CoolFileConfig,
+  },
 } as unknown as MidwayConfig;
 ```
 
@@ -266,16 +266,16 @@ import { CoolFile } from "@cool-midway/file";
 @Provide()
 @CoolController()
 export class AppDemoFileController extends BaseController {
-	@Inject()
-	ctx: Context;
+  @Inject()
+  ctx: Context;
 
-	@Inject()
-	file: CoolFile;
+  @Inject()
+  file: CoolFile;
 
-	@Post("/upload", { summary: "文件上传" })
-	async uplod() {
-		return this.ok(await this.file.upload(this.ctx));
-	}
+  @Post("/upload", { summary: "文件上传" })
+  async uplod() {
+    return this.ok(await this.file.upload(this.ctx));
+  }
 }
 ```
 
@@ -283,7 +283,7 @@ export class AppDemoFileController extends BaseController {
 
 ## 腾讯云 cos
 
-配置方式参考[阿里云 oss](/admin/node/core/file.html#阿里云oss)
+配置方式参考[阿里云 oss](/src/guide/core/file.html#阿里云oss)
 
 配置：
 
@@ -306,7 +306,7 @@ cool: {
 
 ## 七牛云 qiniu
 
-配置方式参考[阿里云 oss](/admin/node/core/file.html#阿里云oss)
+配置方式参考[阿里云 oss](/src/guide/core/file.html#阿里云oss)
 
 配置：
 
@@ -348,7 +348,7 @@ cool: {
 
 ## 亚马逊云 AWS s3 (7.0 新增)
 
-配置方式参考[阿里云 oss](/admin/node/core/file.html#阿里云oss)
+配置方式参考[阿里云 oss](/src/guide/core/file.html#阿里云oss)
 
 配置：
 
@@ -398,12 +398,12 @@ cool: {
 
 ```json
 [
-	{
-		"AllowedHeaders": ["*"],
-		"AllowedMethods": ["PUT", "POST", "DELETE"],
-		"AllowedOrigins": ["http://localhost:9000", "http://127.0.0.1:9000"],
-		"ExposeHeaders": []
-	}
+  {
+    "AllowedHeaders": ["*"],
+    "AllowedMethods": ["PUT", "POST", "DELETE"],
+    "AllowedOrigins": ["http://localhost:9000", "http://127.0.0.1:9000"],
+    "ExposeHeaders": []
+  }
 ]
 ```
 
@@ -425,16 +425,18 @@ import { CoolFile } from "@cool-midway/file";
 @Provide()
 @CoolController()
 export class AppDemoFileController extends BaseController {
-	@Inject()
-	ctx: Context;
+  @Inject()
+  ctx: Context;
 
-	@Inject()
-	file: CoolFile;
+  @Inject()
+  file: CoolFile;
 
-	@Post("/downAndUpload", { summary: "下载并上传" })
-	async downAndUpload() {
-		return this.ok(await this.file.downAndUpload("https://cool-js.com/notice.png"));
-	}
+  @Post("/downAndUpload", { summary: "下载并上传" })
+  async downAndUpload() {
+    return this.ok(
+      await this.file.downAndUpload("https://cool-js.com/notice.png")
+    );
+  }
 }
 ```
 

@@ -2,7 +2,7 @@
 
 ## 内置任务
 
-内置定时任务能力来自于[midwayjs](http://www.midwayjs.org/docs/extensions/task)
+内置定时任务能力来自于[midwayjs](https://www.midwayjs.org/docs/extensions/cron)
 
 ### 引入组件
 
@@ -12,8 +12,8 @@ import * as task from "@midwayjs/task"; // 导入模块
 import { join } from "path";
 
 @Configuration({
-	imports: [task],
-	importConfigs: [join(__dirname, "config")]
+  imports: [task],
+  importConfigs: [join(__dirname, "config")],
 })
 export class AutoConfiguration {}
 ```
@@ -25,14 +25,14 @@ import { Provide, Inject, TaskLocal, FORMAT } from "@midwayjs/decorator";
 
 @Provide()
 export class UserService {
-	@Inject()
-	helloService: HelloService;
+  @Inject()
+  helloService: HelloService;
 
-	// 例如下面是每分钟执行一次
-	@TaskLocal(FORMAT.CRONTAB.EVERY_MINUTE)
-	async test() {
-		console.log(this.helloService.getName());
-	}
+  // 例如下面是每分钟执行一次
+  @TaskLocal(FORMAT.CRONTAB.EVERY_MINUTE)
+  async test() {
+    console.log(this.helloService.getName());
+  }
 }
 ```
 
@@ -61,7 +61,7 @@ export class UserService {
 
 ### 原生方式
 
-参考[midwayjs 分布式定时任务](http://www.midwayjs.org/docs/extensions/task#%E5%88%86%E5%B8%83%E5%BC%8F%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1)
+参考[midwayjs 分布式定时任务](https://www.midwayjs.org/docs/extensions/bull)
 
 ### 特有方式
 
@@ -77,20 +77,20 @@ import { join } from "path";
 import * as task from "@cool-midway/task";
 
 @Configuration({
-	imports: [task],
-	importConfigs: [join(__dirname, "./config")]
+  imports: [task],
+  importConfigs: [join(__dirname, "./config")],
 })
 export class ContainerLifeCycle {
-	@App()
-	app: koa.Application;
+  @App()
+  app: koa.Application;
 
-	async onReady() {}
+  async onReady() {}
 }
 ```
 
 #### 配置
 
-[redis>=5.x](https://redis.io/)，推荐[redis>=6.x](https://redis.io/)
+[redis>=5.x](https://redis.io/)，推荐[redis>=7.x](https://redis.io/)
 
 `src/config/config.default.ts`
 
@@ -100,20 +100,20 @@ import { MidwayConfig } from "@midwayjs/core";
 import * as fsStore from "cache-manager-fs-hash";
 
 export default {
-	// 修改成你自己独有的key
-	keys: "cool-admin for node",
-	koa: {
-		port: 8001
-	},
-	// cool配置
-	cool: {
-		redis: {
-			host: "127.0.0.1",
-			port: 6379,
-			password: "",
-			db: 0
-		}
-	}
+  // 修改成你自己独有的key
+  keys: "cool-admin for node",
+  koa: {
+    port: 8001,
+  },
+  // cool配置
+  cool: {
+    redis: {
+      host: "127.0.0.1",
+      port: 6379,
+      password: "",
+      db: 0,
+    },
+  },
 } as unknown as MidwayConfig;
 ```
 
@@ -121,30 +121,30 @@ redis cluster 方式
 
 ```ts
 [
-	{
-		host: "192.168.0.103",
-		port: 7000
-	},
-	{
-		host: "192.168.0.103",
-		port: 7001
-	},
-	{
-		host: "192.168.0.103",
-		port: 7002
-	},
-	{
-		host: "192.168.0.103",
-		port: 7003
-	},
-	{
-		host: "192.168.0.103",
-		port: 7004
-	},
-	{
-		host: "192.168.0.103",
-		port: 7005
-	}
+  {
+    host: "192.168.0.103",
+    port: 7000,
+  },
+  {
+    host: "192.168.0.103",
+    port: 7001,
+  },
+  {
+    host: "192.168.0.103",
+    port: 7002,
+  },
+  {
+    host: "192.168.0.103",
+    port: 7003,
+  },
+  {
+    host: "192.168.0.103",
+    port: 7004,
+  },
+  {
+    host: "192.168.0.103",
+    port: 7005,
+  },
 ];
 ```
 
@@ -158,14 +158,14 @@ import { BaseService } from "@cool-midway/core";
  */
 @Provide()
 export class DemoTaskService extends BaseService {
-	/**
-	 * 测试任务执行
-	 * @param params 接收的参数 数组 [] 可不传
-	 */
-	async test(params?: []) {
-		// 需要登录后台任务管理配置任务
-		console.log("任务执行了", params);
-	}
+  /**
+   * 测试任务执行
+   * @param params 接收的参数 数组 [] 可不传
+   */
+  async test(params?: []) {
+    // 需要登录后台任务管理配置任务
+    console.log("任务执行了", params);
+  }
 }
 ```
 
@@ -209,16 +209,16 @@ import { App } from "@midwayjs/decorator";
  */
 @CoolQueue()
 export class DemoCommQueue extends BaseCoolQueue {
-	@App()
-	app: IMidwayApplication;
+  @App()
+  app: IMidwayApplication;
 
-	async data(job: any, done: any): Promise<void> {
-		// 这边可以执行定时任务具体的业务或队列的业务
-		console.log("数据", job.data);
-		// 抛出错误 可以让队列重试，默认重试5次
-		//throw new Error('错误');
-		done();
-	}
+  async data(job: any, done: any): Promise<void> {
+    // 这边可以执行定时任务具体的业务或队列的业务
+    console.log("数据", job.data);
+    // 抛出错误 可以让队列重试，默认重试5次
+    //throw new Error('错误');
+    done();
+  }
 }
 ```
 
@@ -264,33 +264,33 @@ import { DemoGetterQueue } from "../../queue/getter";
 @Provide()
 @CoolController()
 export class DemoQueueController extends BaseController {
-	// 普通队列
-	@Inject()
-	demoCommQueue: DemoCommQueue;
+  // 普通队列
+  @Inject()
+  demoCommQueue: DemoCommQueue;
 
-	// 主动消费队列
-	@Inject()
-	demoGetterQueue: DemoGetterQueue;
+  // 主动消费队列
+  @Inject()
+  demoGetterQueue: DemoGetterQueue;
 
-	/**
-	 * 发送数据到队列
-	 */
-	@Post("/add", { summary: "发送队列数据" })
-	async queue() {
-		this.demoCommQueue.add({ a: 2 });
-		return this.ok();
-	}
+  /**
+   * 发送数据到队列
+   */
+  @Post("/add", { summary: "发送队列数据" })
+  async queue() {
+    this.demoCommQueue.add({ a: 2 });
+    return this.ok();
+  }
 
-	/**
-	 * 获得队列中的数据，只有当队列类型为getter时有效
-	 */
-	@Get("/getter")
-	async getter() {
-		const job = await this.demoCommQueue.getters.getJobs(["wait"], 0, 0, true);
-		// 获得完将数据从队列移除
-		await job[0].remove();
-		return this.ok(job[0].data);
-	}
+  /**
+   * 获得队列中的数据，只有当队列类型为getter时有效
+   */
+  @Get("/getter")
+  async getter() {
+    const job = await this.demoCommQueue.getters.getJobs(["wait"], 0, 0, true);
+    // 获得完将数据从队列移除
+    await job[0].remove();
+    return this.ok(job[0].data);
+  }
 }
 ```
 
@@ -298,33 +298,33 @@ export class DemoQueueController extends BaseController {
 
 ```ts
 interface JobOpts {
-	priority: number; // Optional priority value. ranges from 1 (highest priority) to MAX_INT  (lowest priority). Note that
-	// using priorities has a slight impact on performance, so do not use it if not required.
+  priority: number; // Optional priority value. ranges from 1 (highest priority) to MAX_INT  (lowest priority). Note that
+  // using priorities has a slight impact on performance, so do not use it if not required.
 
-	delay: number; // An amount of milliseconds to wait until this job can be processed. Note that for accurate delays, both
-	// server and clients should have their clocks synchronized. [optional].
+  delay: number; // An amount of milliseconds to wait until this job can be processed. Note that for accurate delays, both
+  // server and clients should have their clocks synchronized. [optional].
 
-	attempts: number; // The total number of attempts to try the job until it completes.
+  attempts: number; // The total number of attempts to try the job until it completes.
 
-	repeat: RepeatOpts; // Repeat job according to a cron specification.
+  repeat: RepeatOpts; // Repeat job according to a cron specification.
 
-	backoff: number | BackoffOpts; // Backoff setting for automatic retries if the job fails, default strategy: `fixed`
+  backoff: number | BackoffOpts; // Backoff setting for automatic retries if the job fails, default strategy: `fixed`
 
-	lifo: boolean; // if true, adds the job to the right of the queue instead of the left (default false)
-	timeout: number; // The number of milliseconds after which the job should be fail with a timeout error [optional]
+  lifo: boolean; // if true, adds the job to the right of the queue instead of the left (default false)
+  timeout: number; // The number of milliseconds after which the job should be fail with a timeout error [optional]
 
-	jobId: number | string; // Override the job ID - by default, the job ID is a unique
-	// integer, but you can use this setting to override it.
-	// If you use this option, it is up to you to ensure the
-	// jobId is unique. If you attempt to add a job with an id that
-	// already exists, it will not be added.
+  jobId: number | string; // Override the job ID - by default, the job ID is a unique
+  // integer, but you can use this setting to override it.
+  // If you use this option, it is up to you to ensure the
+  // jobId is unique. If you attempt to add a job with an id that
+  // already exists, it will not be added.
 
-	removeOnComplete: boolean | number; // If true, removes the job when it successfully
-	// completes. A number specified the amount of jobs to keep. Default behavior is to keep the job in the completed set.
+  removeOnComplete: boolean | number; // If true, removes the job when it successfully
+  // completes. A number specified the amount of jobs to keep. Default behavior is to keep the job in the completed set.
 
-	removeOnFail: boolean | number; // If true, removes the job when it fails after all attempts. A number specified the amount of jobs to keep
-	// Default behavior is to keep the job in the failed set.
-	stackTraceLimit: number; // Limits the amount of stack trace lines that will be recorded in the stacktrace.
+  removeOnFail: boolean | number; // If true, removes the job when it fails after all attempts. A number specified the amount of jobs to keep
+  // Default behavior is to keep the job in the failed set.
+  stackTraceLimit: number; // Limits the amount of stack trace lines that will be recorded in the stacktrace.
 }
 ```
 

@@ -28,13 +28,13 @@ import { CoolController, BaseController } from "@cool-midway/core";
 @Provide()
 @CoolController("/api")
 export class AppDemoGoodsController extends BaseController {
-	/**
-	 * 其他接口
-	 */
-	@Get("/other")
-	async other() {
-		return this.ok("hello, cool-admin!!!");
-	}
+  /**
+   * 其他接口
+   */
+  @Get("/other")
+  async other() {
+    return this.ok("hello, cool-admin!!!");
+  }
 }
 ```
 
@@ -50,18 +50,18 @@ import { DemoGoodsEntity } from "../../entity/goods";
  */
 @Provide()
 @CoolController({
-	prefix: "/api",
-	api: ["add", "delete", "update", "info", "list", "page"],
-	entity: DemoGoodsEntity
+  prefix: "/api",
+  api: ["add", "delete", "update", "info", "list", "page"],
+  entity: DemoGoodsEntity,
 })
 export class AppDemoGoodsController extends BaseController {
-	/**
-	 * 其他接口
-	 */
-	@Get("/other")
-	async other() {
-		return this.ok("hello, cool-admin!!!");
-	}
+  /**
+   * 其他接口
+   */
+  @Get("/other")
+  async other() {
+    return this.ok("hello, cool-admin!!!");
+  }
 }
 ```
 
@@ -75,7 +75,7 @@ export class AppDemoGoodsController extends BaseController {
 
 `src/modules/demo/controller/app/goods.ts`
 
-路由前缀是根据文件目录文件名按照[规则](/admin/node/core/controller.html#规则)生成的，上述示例生成的路由为
+路由前缀是根据文件目录文件名按照[规则](/src/guide/core/controller.html#规则)生成的，上述示例生成的路由为
 
 `http://127.0.0.1:8001/app/demo/goods/xxx`
 
@@ -91,17 +91,17 @@ import { DemoGoodsEntity } from "../../entity/goods";
  */
 @Provide()
 @CoolController({
-	api: ["add", "delete", "update", "info", "list", "page"],
-	entity: DemoGoodsEntity
+  api: ["add", "delete", "update", "info", "list", "page"],
+  entity: DemoGoodsEntity,
 })
 export class AppDemoGoodsController extends BaseController {
-	/**
-	 * 其他接口
-	 */
-	@Get("/other")
-	async other() {
-		return this.ok("hello, cool-admin!!!");
-	}
+  /**
+   * 其他接口
+   */
+  @Get("/other")
+  async other() {
+    return this.ok("hello, cool-admin!!!");
+  }
 }
 ```
 
@@ -179,86 +179,86 @@ import { DemoAppGoodsEntity } from "../../entity/goods";
  */
 @Provide()
 @CoolController({
-	// 添加通用CRUD接口
-	api: ["add", "delete", "update", "info", "list", "page"],
-	// 设置表实体
-	entity: DemoAppGoodsEntity,
-	// 向表插入当前登录用户ID
-	insertParam: (ctx) => {
-		return {
-			// 获得当前登录的后台用户ID，需要请求头传Authorization参数
-			userId: ctx.admin.userId
-		};
-	},
-	// 操作crud之前做的事情 @cool-midway/core@3.2.14 新增
-	before: (ctx) => {
-		// 将前端的数据转JSON格式存数据库
-		const { data } = ctx.request.body;
-		ctx.request.body.data = JSON.stringify(data);
-	},
-	// info接口忽略价格字段
-	infoIgnoreProperty: ["price"],
-	// 分页查询配置
-	pageQueryOp: {
-		// 让title字段支持模糊查询
-		keyWordLikeFields: ["title"],
-		// 让type字段支持筛选，请求筛选字段与表字段一致是情况
-		fieldEq: ["type"],
-		// 多表关联，请求筛选字段与表字段不一致的情况
-		fieldEq: [{ column: "a.id", requestParam: "id" }],
-		// 指定返回字段，注意多表查询这个是必要的，否则会出现重复字段的问题
-		select: ["a.*", "b.name", "a.name AS userName"],
-		// 4.x置为过时 改用 join 关联表用户表
-		leftJoin: [
-			{
-				entity: BaseSysUserEntity,
-				alias: "b",
-				condition: "a.userId = b.id"
-			}
-		],
-		// 4.x新增
-		join: [
-			{
-				entity: BaseSysUserEntity,
-				alias: "b",
-				condition: "a.userId = b.id",
-				type: "innerJoin"
-			}
-		],
-		// 4.x 新增 追加其他条件
-		extend: async (find: SelectQueryBuilder<DemoGoodsEntity>) => {
-			find.groupBy("a.id");
-		},
-		// 增加其他条件
-		where: async (ctx) => {
-			// 获取body参数
-			const { a } = ctx.request.body;
-			return [
-				// 价格大于90
-				["a.price > :price", { price: 90.0 }],
-				// 满足条件才会执行
-				["a.price > :price", { price: 90.0 }, "条件"],
-				// 多个条件一起
-				[
-					"(a.price = :price or a.userId = :userId)",
-					{ price: 90.0, userId: ctx.admin.userId }
-				]
-			];
-		},
-		// 添加排序
-		addOrderBy: {
-			price: "desc"
-		}
-	}
+  // 添加通用CRUD接口
+  api: ["add", "delete", "update", "info", "list", "page"],
+  // 设置表实体
+  entity: DemoAppGoodsEntity,
+  // 向表插入当前登录用户ID
+  insertParam: (ctx) => {
+    return {
+      // 获得当前登录的后台用户ID，需要请求头传Authorization参数
+      userId: ctx.admin.userId,
+    };
+  },
+  // 操作crud之前做的事情 @cool-midway/core@3.2.14 新增
+  before: (ctx) => {
+    // 将前端的数据转JSON格式存数据库
+    const { data } = ctx.request.body;
+    ctx.request.body.data = JSON.stringify(data);
+  },
+  // info接口忽略价格字段
+  infoIgnoreProperty: ["price"],
+  // 分页查询配置
+  pageQueryOp: {
+    // 让title字段支持模糊查询
+    keyWordLikeFields: ["title"],
+    // 让type字段支持筛选，请求筛选字段与表字段一致是情况
+    fieldEq: ["type"],
+    // 多表关联，请求筛选字段与表字段不一致的情况
+    fieldEq: [{ column: "a.id", requestParam: "id" }],
+    // 指定返回字段，注意多表查询这个是必要的，否则会出现重复字段的问题
+    select: ["a.*", "b.name", "a.name AS userName"],
+    // 4.x置为过时 改用 join 关联表用户表
+    leftJoin: [
+      {
+        entity: BaseSysUserEntity,
+        alias: "b",
+        condition: "a.userId = b.id",
+      },
+    ],
+    // 4.x新增
+    join: [
+      {
+        entity: BaseSysUserEntity,
+        alias: "b",
+        condition: "a.userId = b.id",
+        type: "innerJoin",
+      },
+    ],
+    // 4.x 新增 追加其他条件
+    extend: async (find: SelectQueryBuilder<DemoGoodsEntity>) => {
+      find.groupBy("a.id");
+    },
+    // 增加其他条件
+    where: async (ctx) => {
+      // 获取body参数
+      const { a } = ctx.request.body;
+      return [
+        // 价格大于90
+        ["a.price > :price", { price: 90.0 }],
+        // 满足条件才会执行
+        ["a.price > :price", { price: 90.0 }, "条件"],
+        // 多个条件一起
+        [
+          "(a.price = :price or a.userId = :userId)",
+          { price: 90.0, userId: ctx.admin.userId },
+        ],
+      ];
+    },
+    // 添加排序
+    addOrderBy: {
+      price: "desc",
+    },
+  },
 })
 export class DemoAppGoodsController extends BaseController {
-	/**
-	 * 其他接口
-	 */
-	@Get("/other")
-	async other() {
-		return this.ok("hello, cool-admin!!!");
-	}
+  /**
+   * 其他接口
+   */
+  @Get("/other")
+  async other() {
+    return this.ok("hello, cool-admin!!!");
+  }
 }
 ```
 
@@ -300,7 +300,7 @@ export class DemoAppGoodsController extends BaseController {
 
 ### 接口调用
 
-`add` `delete` `update` `info` 等接口可以用法[参照快速开始](/admin/node/quick.html#接口调用)
+`add` `delete` `update` `info` 等接口可以用法[参照快速开始](/src/guide/quick.html#接口调用)
 
 这里详细说明下`page` `list`两个接口的调用方式，这两个接口调用方式差不多，一个是分页一个是非分页。
 以`page`接口为例
@@ -310,7 +310,7 @@ export class DemoAppGoodsController extends BaseController {
 POST `/admin/demo/goods/page` 分页数据
 
 **请求**
-Url: http://localhost:8001/admin/demo/goods/page
+Url: http://127.0.0.1:8001/admin/demo/goods/page
 
 Method: POST
 
@@ -318,12 +318,12 @@ Method: POST
 
 ```json
 {
-	"keyWord": "商品标题", // 模糊搜索，搜索的字段对应keyWordLikeFields
-	"type": 1, // 全等于筛选，对应fieldEq
-	"page": 2, // 第几页
-	"size": 1, // 每页返回个数
-	"sort": "desc", // 排序方向
-	"order": "id" // 排序字段
+  "keyWord": "商品标题", // 模糊搜索，搜索的字段对应keyWordLikeFields
+  "type": 1, // 全等于筛选，对应fieldEq
+  "page": 2, // 第几页
+  "size": 1, // 每页返回个数
+  "sort": "desc", // 排序方向
+  "order": "id" // 排序字段
 }
 ```
 
@@ -331,28 +331,28 @@ Method: POST
 
 ```json
 {
-	"code": 1000,
-	"message": "success",
-	"data": {
-		"list": [
-			{
-				"id": 4,
-				"createTime": "2021-03-12 16:23:46",
-				"updateTime": "2021-03-12 16:23:46",
-				"title": "这是一个商品2",
-				"pic": "https://show.cool-admin.com/uploads/20210311/2e393000-8226-11eb-abcf-fd7ae6caeb70.png",
-				"price": "99.00",
-				"userId": 1,
-				"type": 1,
-				"name": "超级管理员"
-			}
-		],
-		"pagination": {
-			"page": 2,
-			"size": 1,
-			"total": 4
-		}
-	}
+  "code": 1000,
+  "message": "success",
+  "data": {
+    "list": [
+      {
+        "id": 4,
+        "createTime": "2021-03-12 16:23:46",
+        "updateTime": "2021-03-12 16:23:46",
+        "title": "这是一个商品2",
+        "pic": "https://show.cool-admin.com/uploads/20210311/2e393000-8226-11eb-abcf-fd7ae6caeb70.png",
+        "price": "99.00",
+        "userId": 1,
+        "type": 1,
+        "name": "超级管理员"
+      }
+    ],
+    "pagination": {
+      "page": 2,
+      "size": 1,
+      "total": 4
+    }
+  }
 }
 ```
 
@@ -378,38 +378,38 @@ import { BaseSysPermsService } from "./perms";
  */
 @Provide()
 export class BaseSysMenuService extends BaseService {
-	@Inject()
-	ctx;
+  @Inject()
+  ctx;
 
-	@InjectEntityModel(BaseSysMenuEntity)
-	baseSysMenuEntity: Repository<BaseSysMenuEntity>;
+  @InjectEntityModel(BaseSysMenuEntity)
+  baseSysMenuEntity: Repository<BaseSysMenuEntity>;
 
-	@Inject()
-	baseSysPermsService: BaseSysPermsService;
+  @Inject()
+  baseSysPermsService: BaseSysPermsService;
 
-	/**
-	 * 重写list实现
-	 */
-	async list() {
-		const menus = await this.getMenus(
-			this.ctx.admin.roleIds,
-			this.ctx.admin.username === "admin"
-		);
-		if (!_.isEmpty(menus)) {
-			menus.forEach((e) => {
-				const parentMenu = menus.filter((m) => {
-					e.parentId = parseInt(e.parentId);
-					if (e.parentId == m.id) {
-						return m.name;
-					}
-				});
-				if (!_.isEmpty(parentMenu)) {
-					e.parentName = parentMenu[0].name;
-				}
-			});
-		}
-		return menus;
-	}
+  /**
+   * 重写list实现
+   */
+  async list() {
+    const menus = await this.getMenus(
+      this.ctx.admin.roleIds,
+      this.ctx.admin.username === "admin"
+    );
+    if (!_.isEmpty(menus)) {
+      menus.forEach((e) => {
+        const parentMenu = menus.filter((m) => {
+          e.parentId = parseInt(e.parentId);
+          if (e.parentId == m.id) {
+            return m.name;
+          }
+        });
+        if (!_.isEmpty(parentMenu)) {
+          e.parentName = parentMenu[0].name;
+        }
+      });
+    }
+    return menus;
+  }
 }
 ```
 
@@ -428,13 +428,13 @@ import { BaseSysMenuService } from "../../../service/sys/menu";
  */
 @Provide()
 @CoolController({
-	api: ["add", "delete", "update", "info", "list", "page"],
-	entity: BaseSysMenuEntity,
-	service: BaseSysMenuService
+  api: ["add", "delete", "update", "info", "list", "page"],
+  entity: BaseSysMenuEntity,
+  service: BaseSysMenuService,
 })
 export class BaseSysMenuController extends BaseController {
-	@Inject()
-	baseSysMenuService: BaseSysMenuService;
+  @Inject()
+  baseSysMenuService: BaseSysMenuService;
 }
 ```
 
@@ -445,11 +445,11 @@ export class BaseSysMenuController extends BaseController {
 ```ts
 import { Get, Inject, Provide } from "@midwayjs/decorator";
 import {
-	CoolController,
-	BaseController,
-	CoolUrlTag,
-	TagTypes,
-	CoolUrlTagData
+  CoolController,
+  BaseController,
+  CoolUrlTag,
+  TagTypes,
+  CoolUrlTagData,
 } from "@cool-midway/core";
 
 /**
@@ -457,29 +457,29 @@ import {
  */
 @Provide()
 @CoolController({
-	api: [],
-	entity: "",
-	pageQueryOp: () => {}
+  api: [],
+  entity: "",
+  pageQueryOp: () => {},
 })
 // add 接口忽略token
 @CoolUrlTag({
-	key: TagTypes.IGNORE_TOKEN,
-	value: ["add"]
+  key: TagTypes.IGNORE_TOKEN,
+  value: ["add"],
 })
 export class DemoAppTagController extends BaseController {
-	@Inject()
-	tag: CoolUrlTagData;
+  @Inject()
+  tag: CoolUrlTagData;
 
-	/**
-	 * 获得标签数据， 如可以标记忽略token的url，然后在中间件判断
-	 * @returns
-	 */
-	// 这是6.x支持的，可以直接标记这个接口忽略token，更加灵活优雅，但是记得配合@CoolUrlTag()一起使用，也就是Controller上要有这个注解，@CoolTag才会生效
-	@CoolTag(TagTypes.IGNORE_TOKEN)
-	@Get("/data")
-	async data() {
-		return this.ok(this.tag.byKey(TagTypes.IGNORE_TOKEN));
-	}
+  /**
+   * 获得标签数据， 如可以标记忽略token的url，然后在中间件判断
+   * @returns
+   */
+  // 这是6.x支持的，可以直接标记这个接口忽略token，更加灵活优雅，但是记得配合@CoolUrlTag()一起使用，也就是Controller上要有这个注解，@CoolTag才会生效
+  @CoolTag(TagTypes.IGNORE_TOKEN)
+  @Get("/data")
+  async data() {
+    return this.ok(this.tag.byKey(TagTypes.IGNORE_TOKEN));
+  }
 }
 ```
 
@@ -493,19 +493,19 @@ import { NextFunction, Context } from "@midwayjs/koa";
 
 @Middleware()
 export class DemoMiddleware implements IMiddleware<Context, NextFunction> {
-	@Inject()
-	tag: CoolUrlTagData;
+  @Inject()
+  tag: CoolUrlTagData;
 
-	resolve() {
-		return async (ctx: Context, next: NextFunction) => {
-			const urls = this.tag.byKey(TagTypes.IGNORE_TOKEN);
-			console.log("忽略token的URL数组", urls);
-			// 这里可以拿到下一个中间件或者控制器的返回值
-			const result = await next();
-			// 控制器之后执行的逻辑
-			// 返回给上一个中间件的结果
-			return result;
-		};
-	}
+  resolve() {
+    return async (ctx: Context, next: NextFunction) => {
+      const urls = this.tag.byKey(TagTypes.IGNORE_TOKEN);
+      console.log("忽略token的URL数组", urls);
+      // 这里可以拿到下一个中间件或者控制器的返回值
+      const result = await next();
+      // 控制器之后执行的逻辑
+      // 返回给上一个中间件的结果
+      return result;
+    };
+  }
 }
 ```

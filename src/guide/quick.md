@@ -109,7 +109,7 @@ git clone https://gitee.com/cool-team-official/cool-admin-midway.git
 - [可选][redis>=5.x](https://redis.io/)，推荐[redis>=6.x](https://redis.io/)，当你需要使用分布式任务调度与队列功能，需要配置；
 
 ::: tip 提示
-即使不配置[redis](https://redis.io/)，[midwayjs](https://www.midwayjs.org/)也自带本地[定时任务功能](http://www.midwayjs.org/docs/extensions/task#%E6%9C%AC%E5%9C%B0%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1)，可以满足部分需求，只是无法使用 admin 的界面操作。
+即使不配置[redis](https://redis.io/)，[midwayjs](https://www.midwayjs.org/)也自带本地[定时任务功能](https://www.midwayjs.org/docs/extensions/cron)，可以满足部分需求，只是无法使用 admin 的界面操作。
 :::
 
 ### 数据库配置
