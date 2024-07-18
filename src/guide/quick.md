@@ -224,35 +224,46 @@ export default {
 } as MidwayConfig;
 ```
 
-### 运行
+### 运行后端
 
 #### 安装依赖
 
-切换到项目根目录，与`package.json`同级
+切换到后端项目根目录，与`package.json`同级
 
-<CodeGroup>
-  <CodeGroupItem title="YARN" active>
+::: code-group
 
-```bash
+```sh [pnpm]
+pnpm i
+```
+
+```sh [npm]
+npm install
+```
+
+```sh [yarn]
 yarn
 ```
 
-  </CodeGroupItem>
-
-  <CodeGroupItem title="NPM">
-  
-```bash
-npm i
-```
-
-  </CodeGroupItem>
-</CodeGroup>
-
-::: tip 提示
-如果你的网络不佳，安装依赖需要很长时间，可以切换为[阿里镜像源](https://npmmirror.com/)
 :::
 
-::: danger
+::: details 安装遇到了网络问题？
+如果你的网络不佳，安装依赖需要很长时间，可以切换为[阿里镜像源](https://npmmirror.com/)
+
+```sh
+# pnpm
+pnpm config set registry https://registry.npmmirror.com/
+
+# npm
+npm config set registry https://registry.npmmirror.com/
+
+# yarn
+yarn config set registry https://registry.npmmirror.com/
+
+```
+
+:::
+
+::: tip 小贴士
 windows 下安装 cnpm 后，在 vscode 的终端运行有可能会出现如下错误：`xxx : 无法将“xxx”项识别为 cmdlet、函数、脚本文件或可运行程序的名称`
 
 解决方法：
@@ -268,23 +279,21 @@ windows 下安装 cnpm 后，在 vscode 的终端运行有可能会出现如下�
 
 切换到项目根目录，与`package.json`同级
 
-<CodeGroup>
-  <CodeGroupItem title="YARN" active>
+::: code-group
 
-```bash
-yarn dev
+```sh [pnpm]
+pnpm dev
 ```
 
-  </CodeGroupItem>
-
-  <CodeGroupItem title="NPM">
-  
-```bash
+```sh [npm]
 npm run dev
 ```
 
-  </CodeGroupItem>
-</CodeGroup>
+```sh [yarn]
+yarn dev
+```
+
+:::
 
 <img src="/admin/node/run.gif" style="width:80%"/>
 
@@ -296,11 +305,56 @@ npm run dev
 
 <img src="/admin/node/run-success.png" style="width:80%"/>
 
+### 运行前端
+
+[点击前往前端项目详细文档](https://vue.cool-admin.com)
+
+在项目根目录下(跟 package.json 同级)执行命令：
+
+::: code-group
+
+```sh [pnpm]
+# 安装依赖
+pnpm i
+# 运行
+pnpm dev
+```
+
+```sh [npm]
+# 安装依赖
+npm install
+# 运行
+npm run dev
+```
+
+```sh [yarn]
+# 安装依赖
+yarn
+# 运行
+yarn dev
+```
+
+:::
+
+访问[http://127.0.0.1:9000/](http://127.0.0.1:9000/)
+默认账户密码
+
+> 账户：admin  
+> 密码：123456
+
+![](/show/admin.png)
+
 ## 快速 CRUD
+
+### Ai 编码
+
+[从前端到页面的快速 CRUD 可以查看 Ai 编码](/src/guide/ai.html)
+
+### 后端
 
 大部分的后台管理系统，或者 API 服务都是对数据进行管理，所以可以看到大量的 CRUD 场景(增删改查)，cool-admin 对此进行了大量地封装，让这块的编码量变得极其地少。
 
-### 创建表
+#### 创建表
 
 `src/modules/demo/entity/goods.ts`
 
@@ -332,7 +386,7 @@ export class DemoGoodsEntity extends BaseEntity {
 运行代码框架会自动创建表，无需在数据库手动创建
 :::
 
-### 编写接口
+#### 编写接口
 
 `src/modules/demo/controller/open/goods.ts`
 
@@ -369,3 +423,11 @@ POST 方法的参数都是放在请求 body 当中，格式是 JSON，GET 方法
 
 没有指定路由地址，是因为模块的 controller 路由是按照一定规则自动生成的，当然你也可以手动指定，但是我们并不建议你这么做
 :::
+
+### 前端
+
+- 自动生成前端页面，通过管理后台菜单管理的快速创建即可生成
+
+Ui 组件会根据字段智能选择
+
+![](/admin/gen-vue.png)

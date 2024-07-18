@@ -51,7 +51,7 @@ export default defineConfig({
     nav: [
       { text: "介绍", link: "/src/introduce/index.md", noIcon: false },
       { text: "教程", link: "/src/guide/quick.md" },
-      { text: "🔥插件市场", link: "https://cool-js.com/plugin/list.html" },
+      { text: "🔥插件市场", link: "https://cool-js.com/plugin" },
       { text: "交流合作", link: "/src/about/index.md" },
       {
         text: "v7.1.0",
@@ -78,8 +78,12 @@ export default defineConfig({
             link: "https://java.cool-admin.com",
           },
           {
+            text: "Cool Admin Vue(前端)",
+            link: "https://vue.cool-admin.com",
+          },
+          {
             text: "Uni（基于uni-app跨端移动端开发）",
-            link: "https://cool-js.com/uni/introduce.html",
+            link: "https://uni-docs.cool-js.com",
           },
         ],
       },
@@ -158,6 +162,7 @@ export default defineConfig({
               },
             ],
           },
+          { text: "部署项目", link: "/src/guide/deploy.md" },
         ],
       },
       {

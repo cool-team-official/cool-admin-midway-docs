@@ -3,9 +3,9 @@
 ::: warning 注意
 以下方式是旧版本的支付方式，不建议使用，新版本已经插件化了，可以直接到插件市场下载对应的插件，插件的使用方式请参考插件市场对应插件的文档
 
-[前往微信支付插件](https://cool-js.com/plugin/detail.html?id=33)
+[前往微信支付插件](https://cool-js.com/plugin/33)
 
-[前往支付宝支付插件](https://cool-js.com/plugin/detail.html?id=34)
+[前往支付宝支付插件](https://cool-js.com/plugin/34)
 :::
 
 cool-admin 自带封装了微信和支付宝支付

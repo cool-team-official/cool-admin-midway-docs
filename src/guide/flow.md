@@ -2,7 +2,7 @@
 
 [视频演示](https://www.bilibili.com/video/BV1Dw4m1Y7m6/)
 
-[前往插件市场获取源码](https://cool-js.com/plugin/detail.html?id=105)
+[前往插件市场获取源码](https://cool-js.com/plugin/105)
 
 开发 Ai 应用必备！！！
 

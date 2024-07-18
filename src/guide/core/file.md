@@ -3,13 +3,13 @@
 ::: warning 注意
 以下方式是旧版本的支付方式，不建议使用，新版本已经插件化了，可以直接到插件市场下载对应的插件，插件的使用方式请参考插件市场对应插件的文档
 
-[阿里云 OSS 插件](https://cool-js.com/plugin/detail.html?id=36)
+[阿里云 OSS 插件](https://cool-js.com/plugin/36)
 
-[腾讯云 COS 插件](https://cool-js.com/plugin/detail.html?id=37)
+[腾讯云 COS 插件](https://cool-js.com/plugin/37)
 
-[七牛云 QINIU 插件](https://cool-js.com/plugin/detail.html?id=38)
+[七牛云 QINIU 插件](https://cool-js.com/plugin/38)
 
-[亚马逊云 AWS s3 插件](https://cool-js.com/plugin/detail.html?id=39)
+[亚马逊云 AWS s3 插件](https://cool-js.com/plugin/39)
 :::
 
 新版本本地文件上传前缀地址配置位于 `src/modules/plugin/config.ts`，如果有安装云存储插件，本地上传会自动切换为云存储上传
