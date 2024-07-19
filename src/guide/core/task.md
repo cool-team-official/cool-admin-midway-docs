@@ -8,11 +8,11 @@
 
 ```ts
 import { Configuration } from "@midwayjs/decorator";
-import * as task from "@midwayjs/task"; // 导入模块
+import * as cron from "@midwayjs/cron"; // 导入模块
 import { join } from "path";
 
 @Configuration({
-  imports: [task],
+  imports: [cron],
   importConfigs: [join(__dirname, "config")],
 })
 export class AutoConfiguration {}
@@ -21,17 +21,27 @@ export class AutoConfiguration {}
 ### 使用
 
 ```ts
-import { Provide, Inject, TaskLocal, FORMAT } from "@midwayjs/decorator";
+import { Job, IJob } from "@midwayjs/cron";
+import { FORMAT } from "@midwayjs/core";
 
-@Provide()
-export class UserService {
-  @Inject()
-  helloService: HelloService;
+@Job({
+  cronTime: FORMAT.CRONTAB.EVERY_PER_30_MINUTE,
+  start: true,
+})
+export class DataSyncCheckerJob implements IJob {
+  async onTick() {
+    // ...
+  }
+}
+```
 
-  // 例如下面是每分钟执行一次
-  @TaskLocal(FORMAT.CRONTAB.EVERY_MINUTE)
-  async test() {
-    console.log(this.helloService.getName());
+```ts
+@Job("syncJob", {
+  cronTime: "*/2 * * * * *", // 每隔 2s 执行
+})
+export class DataSyncCheckerJob implements IJob {
+  async onTick() {
+    // ...
   }
 }
 ```
@@ -93,6 +103,10 @@ export class ContainerLifeCycle {
 [redis>=5.x](https://redis.io/)，推荐[redis>=7.x](https://redis.io/)
 
 `src/config/config.default.ts`
+
+::: warning 注意
+很多人忽略了这个配置，导致项目包 redis 连接错误！！！
+:::
 
 ```ts
 import { CoolFileConfig, MODETYPE } from "@cool-midway/file";
