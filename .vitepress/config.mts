@@ -113,6 +113,7 @@ export default defineConfig({
           { text: "Ai编码", link: "/src/guide/ai.md" },
           { text: "Ai流程编排", link: "/src/guide/flow.md" },
           { text: "扩展插件", link: "/src/guide/plugin.md" },
+          { text: "视频教程", link: "/src/guide/course.md" },
           {
             text: "核心",
             items: [
