@@ -1,3 +1,3 @@
 # 介绍
 
-Cool Admin(Java 版)的文档
+Cool Admin(Node 版)的文档
