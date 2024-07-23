@@ -114,6 +114,7 @@ export default defineConfig({
           { text: "Ai流程编排", link: "/src/guide/flow.md" },
           { text: "扩展插件", link: "/src/guide/plugin.md" },
           { text: "视频教程", link: "/src/guide/course.md" },
+          { text: "服务部署", link: "/src/guide/deploy.md" },
           {
             text: "核心",
             items: [
@@ -163,7 +164,23 @@ export default defineConfig({
               },
             ],
           },
-          { text: "部署项目", link: "/src/guide/deploy.md" },
+          {
+            text: "其它",
+            items: [
+              {
+                text: "Excel导入导出",
+                link: "/src/guide/other/excel.md",
+              },
+              {
+                text: "SSE调用",
+                link: "/src/guide/other/sse.md",
+              },
+              {
+                text: "Redis集群",
+                link: "/src/guide/other/redis.md",
+              },
+            ],
+          },
         ],
       },
       {
