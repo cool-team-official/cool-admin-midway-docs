@@ -6,7 +6,7 @@
 
 ::: warning 提示
 
-从v7.1开始缓存已经更新到跟Midway最新版本一致，旧的方式已弃用，请移步[midway官方查看缓存文档](https://www.midwayjs.org/docs/extensions/caching)
+从 v7.1 开始缓存已经更新到跟 Midway 最新版本一致，旧的方式已弃用，请移步[midway 官方查看缓存文档](https://www.midwayjs.org/docs/extensions/caching)
 
 :::
 
@@ -20,18 +20,18 @@ import { MidwayConfig } from "@midwayjs/core";
 import { CoolCacheStore } from "@cool-midway/core";
 
 export default {
-	// 缓存 可切换成其他缓存如：redis http://www.midwayjs.org/docs/extensions/caching
-	cacheManager: {
-		clients: {
-			default: {
-				store: CoolCacheStore,
-				options: {
-					path: "cache",
-					ttl: 0
-				}
-			}
-		}
-	}
+  // 缓存 可切换成其他缓存如：redis http://www.midwayjs.org/docs/extensions/caching
+  cacheManager: {
+    clients: {
+      default: {
+        store: CoolCacheStore,
+        options: {
+          path: "cache",
+          ttl: 0,
+        },
+      },
+    },
+  },
 } as unknown as MidwayConfig;
 ```
 
@@ -52,21 +52,21 @@ import { MidwayConfig } from "@midwayjs/core";
 import { redisStore } from "cache-manager-ioredis-yet";
 
 export default {
-	// Redis缓存
-	cacheManager: {
-		clients: {
-			default: {
-				store: redisStore,
-				options: {
-					port: 6379,
-					host: "127.0.0.1",
-					password: "",
-					ttl: 0,
-					db: 0
-				}
-			}
-		}
-	}
+  // Redis缓存
+  cacheManager: {
+    clients: {
+      default: {
+        store: redisStore,
+        options: {
+          port: 6379,
+          host: "127.0.0.1",
+          password: "",
+          ttl: 0,
+          db: 0,
+        },
+      },
+    },
+  },
 } as unknown as MidwayConfig;
 ```
 
@@ -85,18 +85,18 @@ import { MidwayConfig } from "@midwayjs/core";
 import * as redisStore from "cache-manager-ioredis";
 
 export default {
-	// Redis缓存
-	cache: {
-		store: redisStore,
-		options: {
-			port: 6379,
-			host: "127.0.0.1",
-			password: "",
-			db: 0,
-			keyPrefix: "cool:",
-			ttl: null
-		}
-	}
+  // Redis缓存
+  cache: {
+    store: redisStore,
+    options: {
+      port: 6379,
+      host: "127.0.0.1",
+      password: "",
+      db: 0,
+      keyPrefix: "cool:",
+      ttl: null,
+    },
+  },
 } as unknown as MidwayConfig;
 ```
 
@@ -116,32 +116,32 @@ import { CachingFactory, MidwayCache } from "@midwayjs/cache-manager";
 @Provide()
 @CoolController()
 export class AppDemoCacheController extends BaseController {
-	@InjectClient(CachingFactory, "default")
-	midwayCache: MidwayCache;
+  @InjectClient(CachingFactory, "default")
+  midwayCache: MidwayCache;
 
-	@Inject()
-	demoCacheService: DemoCacheService;
+  @Inject()
+  demoCacheService: DemoCacheService;
 
-	/**
-	 * 设置缓存
-	 * @returns
-	 */
-	@Post("/set")
-	async set() {
-		await this.midwayCache.set("a", 1);
-		// 缓存10秒
-		await this.midwayCache.set("a", 1, 10 * 1000);
-		return this.ok(await this.midwayCache.get("a"));
-	}
+  /**
+   * 设置缓存
+   * @returns
+   */
+  @Post("/set")
+  async set() {
+    await this.midwayCache.set("a", 1);
+    // 缓存10秒
+    await this.midwayCache.set("a", 1, 10 * 1000);
+    return this.ok(await this.midwayCache.get("a"));
+  }
 
-	/**
-	 * 获得缓存
-	 * @returns
-	 */
-	@Get("/get")
-	async get() {
-		return this.ok(await this.demoCacheService.get());
-	}
+  /**
+   * 获得缓存
+   * @returns
+   */
+  @Get("/get")
+  async get() {
+    return this.ok(await this.demoCacheService.get());
+  }
 }
 ```
 
@@ -162,15 +162,15 @@ import { CoolCache } from "@cool-midway/core";
  */
 @Provide()
 export class DemoCacheService {
-	// 数据缓存5秒
-	@CoolCache(5)
-	async get() {
-		console.log("执行方法");
-		return {
-			a: 1,
-			b: 2
-		};
-	}
+  // 数据缓存5秒
+  @CoolCache(5000)
+  async get() {
+    console.log("执行方法");
+    return {
+      a: 1,
+      b: 2,
+    };
+  }
 }
 ```
 
