@@ -135,6 +135,7 @@ export default defineConfig({
                 link: "/src/guide/core/module.md",
               },
               { text: "权限管理(auth)", link: "/src/guide/core/authority.md" },
+              { text: "服务扫描(eps)", link: "/src/guide/core/eps.md" },
               { text: "缓存(cache)", link: "/src/guide/core/cache.md" },
               { text: "文件上传(upload)", link: "/src/guide/core/file.md" },
               {
