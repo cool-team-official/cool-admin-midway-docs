@@ -18,6 +18,10 @@ Cool-Admin 的后端源码，欢迎大家一起共建维护，积极贡献代码
 
 [https://gitee.com/cool-team-official/cool-admin-midway](https://gitee.com/cool-team-official/cool-admin-midway)
 
+或
+
+[https://gitcode.com/cool_team/cool-admin-midway](https://gitcode.com/cool_team/cool-admin-midway)
+
 ## 前端(点个 Star 哦)
 
 [点击前往前端项目详细文档](https://vue.cool-admin.com)
@@ -29,6 +33,10 @@ Cool-Admin 的前端源码，欢迎大家一起共建维护，积极贡献代码
 或
 
 [https://gitee.com/cool-team-official/cool-admin-vue](https://gitee.com/cool-team-official/cool-admin-vue)
+
+或
+
+[https://gitcode.com/cool_team/cool-admin-vue](https://gitcode.com/cool_team/cool-admin-vue)
 
 ## 文档
 
