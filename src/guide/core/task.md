@@ -259,7 +259,7 @@ export class DemoGetterQueue extends BaseCoolQueue {}
   @Inject()
   demoGetterQueue: DemoGetterQueue;
 
-  const job = await this.demoCommQueue.getters.getJobs(['wait'], 0, 0, true);
+  const job = await this.demoGetterQueue.getters.getJobs(['wait'], 0, 0, true);
   // 获得完将数据从队列移除
   await job[0].remove();
 ```

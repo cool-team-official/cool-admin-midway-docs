@@ -205,7 +205,7 @@ export default defineConfig({
     socialLinks: [
       {
         icon: "github",
-        link: "https://github.com/cool-team-official/cool-admin-go-next",
+        link: "https://github.com/cool-team-official/cool-admin-midway",
       },
     ],
   },
