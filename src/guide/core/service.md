@@ -6,7 +6,7 @@
 
 ## 重写 CRUD
 
-`Controller`的六个快速方法，`add`、``update`、`delete`、`info`、`list`、`page`，是通过调用一个通用的`BaseService`的方法实现，所以我们可以重写`Service`的方法来实现自己的业务逻辑。
+`Controller`的六个快速方法，`add`、`update`、`delete`、`info`、`list`、`page`，是通过调用一个通用的`BaseService`的方法实现，所以我们可以重写`Service`的方法来实现自己的业务逻辑。
 
 **示例**
 
