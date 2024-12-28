@@ -54,7 +54,7 @@ export default defineConfig({
       { text: "🔥插件市场", link: "https://cool-js.com/plugin" },
       { text: "交流合作", link: "/src/about/index.md" },
       {
-        text: "v7.1.0",
+        text: "v7.1.2",
         items: [
           {
             text: "更新日志",
@@ -179,6 +179,10 @@ export default defineConfig({
               {
                 text: "Redis集群",
                 link: "/src/guide/other/redis.md",
+              },
+              {
+                text: "混淆打包",
+                link: "/src/guide/other/obfuscate.md",
               },
             ],
           },
