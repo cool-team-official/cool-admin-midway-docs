@@ -163,6 +163,14 @@ export default defineConfig({
                 text: "微服务(rpc)",
                 link: "/src/guide/core/rpc.md",
               },
+              {
+                text: "多租户(tenant)",
+                link: "/src/guide/core/tenant.md",
+              },
+              {
+                text: "国际化多语言(i18n)",
+                link: "/src/guide/core/i18n.md",
+              },
             ],
           },
           {
