@@ -4,7 +4,7 @@
 
 ## 全栈开发之路
 
-[B 站全栈开发之路](https://space.bilibili.com/19293745/channel/collectiondetail?sid=2815580)
+[B 站全栈开发之路](https://www.bilibili.com/video/BV1j1421R7aB/)
 
 ## Ai 教程与分享
 

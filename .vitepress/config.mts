@@ -54,7 +54,7 @@ export default defineConfig({
       { text: "🔥插件市场", link: "https://cool-js.com/plugin" },
       { text: "交流合作", link: "/src/about/index.md" },
       {
-        text: "v7.1.2",
+        text: "v8.0.0",
         items: [
           {
             text: "更新日志",
@@ -170,6 +170,14 @@ export default defineConfig({
               {
                 text: "国际化多语言(i18n)",
                 link: "/src/guide/core/i18n.md",
+              },
+              {
+                text: "原生打包(pkg)",
+                link: "/src/guide/core/pkg.md",
+              },
+              {
+                text: "接口文档(swagger)",
+                link: "/src/guide/core/swagger.md",
               },
             ],
           },

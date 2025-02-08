@@ -169,7 +169,7 @@ export class AppDemoGoodsController extends BaseController {
 ### 完整示例
 
 ```ts
-import { Get, Provide } from "@midwayjs/decorator";
+import { Get } from "@midwayjs/decorator";
 import { CoolController, BaseController } from "@cool-midway/core";
 import { BaseSysUserEntity } from "../../../base/entity/sys/user";
 import { DemoAppGoodsEntity } from "../../entity/goods";
@@ -177,10 +177,18 @@ import { DemoAppGoodsEntity } from "../../entity/goods";
 /**
  * 商品
  */
-@Provide()
 @CoolController({
   // 添加通用CRUD接口
   api: ["add", "delete", "update", "info", "list", "page"],
+  // 8.x新增，将service方法注册为api，通过post请求，直接调用service方法
+  serviceApis: [
+    'use',
+    {
+      method: 'test1',
+      summary: '不使用多租户', // 接口描述
+    },
+    'test2', // 也可以不设置summary
+  ]
   // 设置表实体
   entity: DemoAppGoodsEntity,
   // 向表插入当前登录用户ID
@@ -355,6 +363,71 @@ Method: POST
   }
 }
 ```
+
+### 服务注册成Api
+
+很多情况下，我们在`Controller`层并不想过多地操作，而是想直接调用`Service`层的方法，这个时候我们可以将`Service`层的方法注册成`Api`，那么你的某个`Service`方法就变成了`Api`。
+
+#### 示例：
+
+在Controller中
+
+```ts
+import { CoolController, BaseController } from '@cool-midway/core';
+import { DemoGoodsEntity } from '../../entity/goods';
+import { DemoTenantService } from '../../service/tenant';
+
+/**
+ * 示例
+ */
+@CoolController({
+  serviceApis: [
+    'use',
+    {
+      method: 'test1',
+      summary: '不使用多租户', // 接口描述
+    },
+    'test2', // 也可以不设置summary
+  ],
+  entity: DemoGoodsEntity,
+  service: DemoXxxService,
+})
+export class AdminDemoTenantController extends BaseController {}
+
+```
+
+在Service中
+
+```ts
+/**
+ * 示例服务
+ */
+@Provide()
+export class DemoXxxService extends BaseService {
+
+  /**
+   * 示例方法1
+   */
+  async test1(params) {
+    console.log(params);
+    return 'test1';
+  }
+
+  /**
+   * 示例方法2
+   */
+  async test2() {
+    return 'test2';
+  }
+
+}
+
+```
+
+::: warning 注意
+`serviceApis` 注册为`Api`的请求方法是`POST`，所以`Service`层的方法参数需要通过`body`传递
+:::
+
 
 ### 重写 CRUD 实现
 

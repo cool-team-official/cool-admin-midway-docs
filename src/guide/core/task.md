@@ -1,6 +1,6 @@
 # 任务与队列
 
-## 内置任务
+## 内置任务（代码中配置）
 
 内置定时任务能力来自于[midwayjs](https://www.midwayjs.org/docs/extensions/cron)
 
@@ -46,7 +46,7 @@ export class DataSyncCheckerJob implements IJob {
 }
 ```
 
-### 定时规则 cron
+### 规则 cron
 
 ```ts
 *    *    *    *    *    *
@@ -67,15 +67,45 @@ export class DataSyncCheckerJob implements IJob {
 
 :::
 
-## 分布式任务
+## 本地任务（管理后台配置，v8.0新增）
 
-### 原生方式
+可以到登录后台`/系统管理/任务管理/任务列表`，配置任务。默认是不需要任何依赖的， 旧版需要依赖`redis`才能使用该功能。
 
-参考[midwayjs 分布式定时任务](https://www.midwayjs.org/docs/extensions/bull)
+### 配置任务
 
-### 特有方式
+配置完任务可以调用你配置的 service 方法，如：taskDemoService.test()
 
-为了更好地结合前端，cool-admin 提供了另一个一个分布式任务的方案，该方案利用 redis 作为协同。
+### 规则cron
+
+规则 cron
+
+```ts
+*    *    *    *    *    *
+┬    ┬    ┬    ┬    ┬    ┬
+│    │    │    │    │    |
+│    │    │    │    │    └ day of week (0 - 7) (0 or 7 is Sun)
+│    │    │    │    └───── month (1 - 12)
+│    │    │    └────────── day of month (1 - 31)
+│    │    └─────────────── hour (0 - 23)
+│    └──────────────────── minute (0 - 59)
+└───────────────────────── second (0 - 59, optional)
+
+```
+
+规则示例：
+- 每5秒执行一次: `*/5 * * * * *`
+- 每5分钟执行一次: `*/5 * * * *`
+- 每小时执行一次: `0 * * * *`
+- 每天执行一次: `0 0 * * *`
+- 每天1点执行: `0 1 * * *`
+- 每周执行一次: `0 0 * * 0`
+- 每月执行一次: `0 0 1 * *`
+
+![](/admin/node/task.png)
+
+## 分布式任务（管理后台配置）
+
+当需要分布式部署时，需要开启分布式任务，通过 redis 作为协同整个集群的任务，防止任务重复执行等异常情况。
 
 #### 引入插件
 

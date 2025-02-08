@@ -63,11 +63,10 @@ git clone https://gitee.com/cool-team-official/cool-admin-midway.git
  ├── test
  ├── package.json(依赖管理，项目信息)
  ├── bootstrap.js(生产环境启动入口文件，可借助pm2等工具多进程启动)
- ├── server.js(生产环境cfork方式启动入口文件，多进程)
  └── tsconfig.json
 ```
 
-模块目录，这是一个推荐的目录除了`controller`、`config.ts`、`init.sql`其他目录可自由定义
+模块目录，这是一个推荐的目录除了`controller`、`config.ts`其他目录可自由定义
 
 ```ts
  ├── modules
@@ -79,7 +78,8 @@ git clone https://gitee.com/cool-team-official/cool-admin-midway.git
  │   │    └── schedule(定时任务)
  │   │    └── service(服务，写业务逻辑)
  │   │    └── config.ts(必须，模块的配置)
- │   │    └── init.sql(可选，初始化该模块的sql)
+ │   │    └── db.json(可选，初始化该模块的数据)
+ │   │    └── menu.json(可选(7.x新增，配合模块市场使用)，初始化该模块的菜单)
 
 ```
 
