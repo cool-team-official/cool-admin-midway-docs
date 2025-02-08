@@ -319,3 +319,29 @@ const find = this.demoGoodsEntity
   .leftJoin(UserInfoEntity, "b", "a.id = b.id")
   .getRawMany();
 ```
+
+## 配置字典和可选项（8.x新增）
+
+为了让前端可能自动识别某个字段的可选项或者属于哪个字典，我们可以在@Column注解上配置`options`和`dict`属性，
+
+旧的写法
+
+```ts
+// 无法指定字典
+
+// 可选项只能按照一定规则编写，否则前端无法识别
+@Column({ comment: '状态 0-禁用 1-启用', default: 1 })
+status: number;
+```
+
+新的写法
+
+```ts
+// 指定字典为goodsType，这样前端生成的时候就会默认指定这个字典
+@Column({ comment: '分类', dict: 'goodsType' })
+type: number;
+
+// 状态的可选项有禁用和启用，默认是启用，值是数组的下标，0-禁用，1-启用
+@Column({ comment: '状态', dict: ['禁用', '启用'], default: 1 })
+status: number;
+```
