@@ -77,7 +77,7 @@ Cool Admin 针对全球爆火的[Cursor](https://www.cursor.com)编辑器专门�
 
 ### 示例
 
-用 Cursor 打开后端项目，来到 Composer 功能，输入要求：
+用 Cursor 打开后端项目，来到 Composer 功能，切换到 agent 模式，输入要求：
 
 ```txt
 创建一个学生管理模块：student，包括学生信息，课程信息，老师信息
