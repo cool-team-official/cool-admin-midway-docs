@@ -1,11 +1,11 @@
-# 事件
+# 事件(Event)
 
 事件是开发过程中经常使用到的功能，我们经常利用它来做一些解耦的操作。如：更新了用户信息，其他需要更新相关信息的操作自行监听更新等
 
 ## 新建监听
 
 ```ts
-import { Provide, Scope, ScopeEnum } from "@midwayjs/decorator";
+import { Provide, Scope, ScopeEnum } from "@midwayjs/core";
 import { CoolEvent, Event } from "@cool-midway/core";
 
 /**
@@ -13,39 +13,43 @@ import { CoolEvent, Event } from "@cool-midway/core";
  */
 @CoolEvent()
 export class DemoEvent {
-	/**
-	 * 根据事件名接收事件
-	 * @param msg
-	 * @param a
-	 */
-	@Event("updateUser")
-	async updateUser(msg, a) {
-		console.log("ImEvent", "updateUser", msg, a);
-	}
+  /**
+   * 根据事件名接收事件
+   * @param msg
+   * @param a
+   */
+  @Event("updateUser")
+  async updateUser(msg, a) {
+    console.log("ImEvent", "updateUser", msg, a);
+  }
 }
 ```
 
 ## 发送事件
 
 ```ts
-import { Get, Inject, Provide } from "@midwayjs/decorator";
-import { CoolController, BaseController, CoolEventManager } from "@cool-midway/core";
+import { Get, Inject, Provide } from "@midwayjs/core";
+import {
+  CoolController,
+  BaseController,
+  CoolEventManager,
+} from "@cool-midway/core";
 
 /**
  * 事件
  */
 @CoolController()
 export class DemoEventController extends BaseController {
-	@Inject()
-	coolEventManager: CoolEventManager;
+  @Inject()
+  coolEventManager: CoolEventManager;
 
-	/**
-	 * 发送事件
-	 */
-	@Get("/send")
-	public async send() {
-		this.coolEventManager.emit("updateUser", { a: 1 }, 12);
-	}
+  /**
+   * 发送事件
+   */
+  @Get("/send")
+  public async send() {
+    this.coolEventManager.emit("updateUser", { a: 1 }, 12);
+  }
 }
 ```
 
@@ -56,8 +60,12 @@ export class DemoEventController extends BaseController {
 需要根据你的业务需求来使用该功能！！！
 
 ```ts
-import { Get, Inject, Provide } from "@midwayjs/decorator";
-import { CoolController, BaseController, CoolEventManager } from "@cool-midway/core";
+import { Get, Inject, Provide } from "@midwayjs/core";
+import {
+  CoolController,
+  BaseController,
+  CoolEventManager,
+} from "@cool-midway/core";
 
 /**
  * 事件
@@ -65,14 +73,14 @@ import { CoolController, BaseController, CoolEventManager } from "@cool-midway/c
 @Provide()
 @CoolController()
 export class DemoEventController extends BaseController {
-	@Inject()
-	coolEventManager: CoolEventManager;
+  @Inject()
+  coolEventManager: CoolEventManager;
 
-	@Post("/global", { summary: "全局事件，多进程都有效" })
-	async global() {
-		await this.coolEventManager.globalEmit("demo", false, { a: 2 }, 1);
-		return this.ok();
-	}
+  @Post("/global", { summary: "全局事件，多进程都有效" })
+  async global() {
+    await this.coolEventManager.globalEmit("demo", false, { a: 2 }, 1);
+    return this.ok();
+  }
 }
 ```
 

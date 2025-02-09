@@ -1,4 +1,4 @@
-# 任务与队列
+# 任务与队列(Task)
 
 ## 内置任务（代码中配置）
 
@@ -7,7 +7,7 @@
 ### 引入组件
 
 ```ts
-import { Configuration } from "@midwayjs/decorator";
+import { Configuration } from "@midwayjs/core";
 import * as cron from "@midwayjs/cron"; // 导入模块
 import { join } from "path";
 
@@ -67,7 +67,7 @@ export class DataSyncCheckerJob implements IJob {
 
 :::
 
-## 本地任务（管理后台配置，v8.0新增）
+## 本地任务（管理后台配置，v8.0 新增）
 
 可以到登录后台`/系统管理/任务管理/任务列表`，配置任务。默认是不需要任何依赖的， 旧版需要依赖`redis`才能使用该功能。
 
@@ -75,7 +75,7 @@ export class DataSyncCheckerJob implements IJob {
 
 配置完任务可以调用你配置的 service 方法，如：taskDemoService.test()
 
-### 规则cron
+### 规则 cron
 
 规则 cron
 
@@ -93,11 +93,12 @@ export class DataSyncCheckerJob implements IJob {
 ```
 
 规则示例：
-- 每5秒执行一次: `*/5 * * * * *`
-- 每5分钟执行一次: `*/5 * * * *`
+
+- 每 5 秒执行一次: `*/5 * * * * *`
+- 每 5 分钟执行一次: `*/5 * * * *`
 - 每小时执行一次: `0 * * * *`
 - 每天执行一次: `0 0 * * *`
-- 每天1点执行: `0 1 * * *`
+- 每天 1 点执行: `0 1 * * *`
 - 每周执行一次: `0 0 * * 0`
 - 每月执行一次: `0 0 1 * *`
 
@@ -112,7 +113,7 @@ export class DataSyncCheckerJob implements IJob {
 `src/configuration.ts`
 
 ```ts
-import { Configuration, App } from "@midwayjs/decorator";
+import { Configuration, App } from "@midwayjs/core";
 import { join } from "path";
 import * as task from "@cool-midway/task";
 
@@ -195,7 +196,7 @@ redis cluster 方式
 ### 创建执行任务的 service
 
 ```ts
-import { Provide } from "@midwayjs/decorator";
+import { Provide } from "@midwayjs/core";
 import { BaseService } from "@cool-midway/core";
 /**
  * 任务执行的demo示例
@@ -246,7 +247,7 @@ export class DemoTaskService extends BaseService {
 ```ts
 import { BaseCoolQueue, CoolQueue } from "@cool-midway/task";
 import { IMidwayApplication } from "@midwayjs/core";
-import { App } from "@midwayjs/decorator";
+import { App } from "@midwayjs/core";
 
 /**
  * 普通队列
@@ -297,7 +298,7 @@ export class DemoGetterQueue extends BaseCoolQueue {}
 ### 发送数据
 
 ```ts
-import { Get, Inject, Post, Provide } from "@midwayjs/decorator";
+import { Get, Inject, Post, Provide } from "@midwayjs/core";
 import { CoolController, BaseController } from "@cool-midway/core";
 import { DemoCommQueue } from "../../queue/comm";
 import { DemoGetterQueue } from "../../queue/getter";

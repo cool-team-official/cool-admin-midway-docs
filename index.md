@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "Cool Admin(Node版)"
   text: "一个很酷的后台管理系统开发框架"
-  tagline: 开源免费、Ai编码、流程编排、扩展插件、模块化
+  tagline: 开源免费、Ai编码、Ai流程编排、扩展插件、模块化、多租户、多语言、原生打包...
   actions:
     - theme: brand
       text: 快速开始

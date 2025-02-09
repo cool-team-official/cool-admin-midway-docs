@@ -13,7 +13,7 @@
 #### DEMO 示例
 
 ```ts
-import { Get, Inject, Post, Provide } from "@midwayjs/decorator";
+import { Get, Inject, Post, Provide } from "@midwayjs/core";
 import { CoolController, BaseController, Files } from "@cool-midway/core";
 import xlsx from "node-xlsx";
 import * as XLSX from "xlsx";

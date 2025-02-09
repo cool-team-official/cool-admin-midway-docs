@@ -127,7 +127,7 @@ export default {
 #### 示例
 
 ```ts
-import { Inject, Provide } from "@midwayjs/decorator";
+import { Inject, Provide } from "@midwayjs/core";
 import { BaseService, CoolTransaction } from "@cool-midway/core";
 import { InjectEntityModel } from "@midwayjs/orm";
 import { Repository, QueryRunner } from "typeorm";
@@ -163,6 +163,117 @@ export class DemoGoodsService extends BaseService {
 而且不能是异步的，否则事务无效，
 `queryRunner`会注入到被注解的方法最后一个参数中, 无需调用者传参
 :::
+
+## 字段
+
+BaseEntity 是实体基类，所有实体类都需要继承它。
+
+- v8.x 之前位于`@cool-midway/core`包中
+- v8.x 之后位于`src/modules/base/entity/base.ts`
+
+```typescript
+import { Index, PrimaryGeneratedColumn, Column } from "typeorm";
+import * as moment from "moment";
+import { CoolBaseEntity } from "@cool-midway/core";
+
+const transformer = {
+  to(value) {
+    return value
+      ? moment(value).format("YYYY-MM-DD HH:mm:ss")
+      : moment().format("YYYY-MM-DD HH:mm:ss");
+  },
+  from(value) {
+    return value;
+  },
+};
+
+/**
+ * 实体基类
+ */
+export abstract class BaseEntity extends CoolBaseEntity {
+  // 默认自增
+  @PrimaryGeneratedColumn("increment", {
+    comment: "ID",
+  })
+  id: number;
+
+  @Index()
+  @Column({
+    comment: "创建时间",
+    type: "varchar",
+    transformer,
+  })
+  createTime: Date;
+
+  @Index()
+  @Column({
+    comment: "更新时间",
+    type: "varchar",
+    transformer,
+  })
+  updateTime: Date;
+
+  @Index()
+  @Column({ comment: "租户ID", nullable: true })
+  tenantId: number;
+}
+```
+
+```typescript
+// v8.x 之前
+import { BaseEntity } from "@cool-midway/core";
+// v8.x 之后
+import { BaseEntity } from "../../base/entity/base";
+import { Column, Entity, Index } from "typeorm";
+
+/**
+ * demo模块-用户信息
+ */
+// 表名必须包含模块固定格式：模块_，
+@Entity("demo_user_info")
+// DemoUserInfoEntity是模块+表名+Entity
+export class DemoUserInfoEntity extends BaseEntity {
+  @Index()
+  @Column({ comment: "手机号", length: 11 })
+  phone: string;
+
+  @Index({ unique: true })
+  @Column({ comment: "身份证", length: 50 })
+  idCard: string;
+
+  // 生日只需要精确到哪一天，所以type:'date'，如果需要精确到时分秒,应为'datetime'
+  @Column({ comment: "生日", type: "date" })
+  birthday: Date;
+
+  @Column({ comment: "状态 0-禁用 1-启用", default: 1 })
+  status: number;
+
+  @Column({
+    comment: "分类 0-普通 1-会员 2-超级会员",
+    default: 0,
+    type: "tinyint",
+  })
+  type: number;
+
+  // 由于labels的类型是一个数组，所以Column中的type类型必须得是'json'
+  @Column({ comment: "标签", nullable: true, type: "json" })
+  labels: string[];
+
+  @Column({
+    comment: "余额",
+    type: "decimal",
+    precision: 5,
+    scale: 2,
+  })
+  balance: number;
+
+  @Column({ comment: "备注", nullable: true })
+  remark: string;
+
+  @Column({ comment: "简介", type: "text", nullable: true })
+  summary: string;
+}
+```
 
 ## 虚拟字段
 
@@ -320,9 +431,9 @@ const find = this.demoGoodsEntity
   .getRawMany();
 ```
 
-## 配置字典和可选项（8.x新增）
+## 配置字典和可选项（8.x 新增）
 
-为了让前端可能自动识别某个字段的可选项或者属于哪个字典，我们可以在@Column注解上配置`options`和`dict`属性，
+为了让前端可能自动识别某个字段的可选项或者属于哪个字典，我们可以在@Column 注解上配置`options`和`dict`属性，
 
 旧的写法
 

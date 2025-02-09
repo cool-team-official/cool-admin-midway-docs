@@ -1,4 +1,4 @@
-# 缓存
+# 缓存(Cache)
 
 为了方便开发者进行缓存操作的组件，它有利于改善项目的性能。它为我们提供了一个数据中心以便进行高效的数据访问。
 
@@ -106,7 +106,7 @@ export default {
 
 ```ts
 import { DemoCacheService } from "../../service/cache";
-import { Inject, Post, Provide, Get, InjectClient } from "@midwayjs/decorator";
+import { Inject, Post, Provide, Get, InjectClient } from "@midwayjs/core";
 import { CoolController, BaseController } from "@cool-midway/core";
 import { CachingFactory, MidwayCache } from "@midwayjs/cache-manager";
 
@@ -154,7 +154,7 @@ export class AppDemoCacheController extends BaseController {
 `src/modules/demo/service/cache.ts`
 
 ```ts
-import { Provide } from "@midwayjs/decorator";
+import { Provide } from "@midwayjs/core";
 import { CoolCache } from "@cool-midway/core";
 
 /**

@@ -19,13 +19,11 @@
 无通用 CRUD 设置方法
 
 ```ts
-import { Provide } from "@midwayjs/decorator";
 import { CoolController, BaseController } from "@cool-midway/core";
 
 /**
  * 商品
  */
-@Provide()
 @CoolController("/api")
 export class AppDemoGoodsController extends BaseController {
   /**
@@ -41,14 +39,13 @@ export class AppDemoGoodsController extends BaseController {
 含通用 CRUD 配置方法
 
 ```ts
-import { Get, Provide } from "@midwayjs/decorator";
+import { Get } from "@midwayjs/core";
 import { CoolController, BaseController } from "@cool-midway/core";
 import { DemoGoodsEntity } from "../../entity/goods";
 
 /**
  * 商品
  */
-@Provide()
 @CoolController({
   prefix: "/api",
   api: ["add", "delete", "update", "info", "list", "page"],
@@ -82,14 +79,13 @@ export class AppDemoGoodsController extends BaseController {
 `xxx`代表具体的方法，如： `add`、`page`、`other`
 
 ```ts
-import { Get, Provide } from "@midwayjs/decorator";
+import { Get } from "@midwayjs/core";
 import { CoolController, BaseController } from "@cool-midway/core";
 import { DemoGoodsEntity } from "../../entity/goods";
 
 /**
  * 商品
  */
-@Provide()
 @CoolController({
   api: ["add", "delete", "update", "info", "list", "page"],
   entity: DemoGoodsEntity,
@@ -133,27 +129,29 @@ export class AppDemoGoodsController extends BaseController {
 
 通用增删改查配置参数
 
-| 参数               | 类型     | 说明                                                          | 备注 |
-| ------------------ | -------- | ------------------------------------------------------------- | ---- |
-| prefix             | String   | 手动设置路由前缀                                              |      |
-| api                | Array    | 快速 API 接口可选`add` `delete` `update` `info` `list` `page` |      |
-| pageQueryOp        | QueryOp  | 分页查询设置                                                  |      |
-| listQueryOp        | QueryOp  | 列表查询设置                                                  |      |
-| insertParam        | Function | 请求插入参数，如新增的时候需要插入当前登录用户的 ID           |      |
-| infoIgnoreProperty | Array    | `info`接口忽略返回的参数，如用户信息不想返回密码              |      |
+| 参数               | 类型     | 说明                                                             | 备注 |
+| ------------------ | -------- | ---------------------------------------------------------------- | ---- |
+| prefix             | String   | 手动设置路由前缀                                                 |      |
+| api                | Array    | 快速 API 接口可选`add` `delete` `update` `info` `list` `page`    |      |
+| serviceApis        | Array    | 将 service 方法注册为 api，通过 post 请求，直接调用 service 方法 |      |
+| pageQueryOp        | QueryOp  | 分页查询设置                                                     |      |
+| listQueryOp        | QueryOp  | 列表查询设置                                                     |      |
+| insertParam        | Function | 请求插入参数，如新增的时候需要插入当前登录用户的 ID              |      |
+| infoIgnoreProperty | Array    | `info`接口忽略返回的参数，如用户信息不想返回密码                 |      |
 
 ### 查询配置(QueryOp)
 
 分页查询与列表查询配置参数
 
-| 参数              | 类型     | 说明                                                                                | 备注 |
-| ----------------- | -------- | ----------------------------------------------------------------------------------- | ---- |
-| keyWordLikeFields | Array    | 支持模糊查询的字段，如一个表中的`name`字段需要模糊查询                              |      |
-| where             | Function | 其他查询条件                                                                        |      |
-| select            | Array    | 选择查询字段                                                                        |      |
-| fieldEq           | Array    | 筛选字段，字符串数组或者对象数组{ column: string, requestParam: string }，如 type=1 |      |
-| addOrderBy        | Object   | 排序                                                                                |      |
-| join              | JoinOp[] | 关联表查询                                                                          |      |
+| 参数              | 类型     | 说明                                                                                   | 备注 |
+| ----------------- | -------- | -------------------------------------------------------------------------------------- | ---- |
+| keyWordLikeFields | Array    | 支持模糊查询的字段，如一个表中的`name`字段需要模糊查询                                 |      |
+| where             | Function | 其他查询条件                                                                           |      |
+| select            | Array    | 选择查询字段                                                                           |      |
+| fieldEq           | Array    | 筛选字段，字符串数组或者对象数组{ column: string, requestParam: string }，如 type=1    |      |
+| fieldLike         | Array    | 模糊查询字段，字符串数组或者对象数组{ column: string, requestParam: string }，如 title |      |
+| addOrderBy        | Object   | 排序                                                                                   |      |
+| join              | JoinOp[] | 关联表查询                                                                             |      |
 
 ### 关联表(JoinOp)
 
@@ -169,7 +167,7 @@ export class AppDemoGoodsController extends BaseController {
 ### 完整示例
 
 ```ts
-import { Get } from "@midwayjs/decorator";
+import { Get } from "@midwayjs/core";
 import { CoolController, BaseController } from "@cool-midway/core";
 import { BaseSysUserEntity } from "../../../base/entity/sys/user";
 import { DemoAppGoodsEntity } from "../../entity/goods";
@@ -208,12 +206,16 @@ import { DemoAppGoodsEntity } from "../../entity/goods";
   infoIgnoreProperty: ["price"],
   // 分页查询配置
   pageQueryOp: {
-    // 让title字段支持模糊查询
+    // 让title字段支持模糊查询，请求参数为keyWord
     keyWordLikeFields: ["title"],
     // 让type字段支持筛选，请求筛选字段与表字段一致是情况
     fieldEq: ["type"],
     // 多表关联，请求筛选字段与表字段不一致的情况
     fieldEq: [{ column: "a.id", requestParam: "id" }],
+    // 让title字段支持模糊查询，请求参数为title
+    fieldLike: ['a.title'],
+    // 让title字段支持模糊查询，请求筛选字段与表字段不一致的情况
+    fieldLike: [{ column: "a.title", requestParam: "title" }],
     // 指定返回字段，注意多表查询这个是必要的，否则会出现重复字段的问题
     select: ["a.*", "b.name", "a.name AS userName"],
     // 4.x置为过时 改用 join 关联表用户表
@@ -364,39 +366,38 @@ Method: POST
 }
 ```
 
-### 服务注册成Api
+### 服务注册成 Api
 
 很多情况下，我们在`Controller`层并不想过多地操作，而是想直接调用`Service`层的方法，这个时候我们可以将`Service`层的方法注册成`Api`，那么你的某个`Service`方法就变成了`Api`。
 
 #### 示例：
 
-在Controller中
+在 Controller 中
 
 ```ts
-import { CoolController, BaseController } from '@cool-midway/core';
-import { DemoGoodsEntity } from '../../entity/goods';
-import { DemoTenantService } from '../../service/tenant';
+import { CoolController, BaseController } from "@cool-midway/core";
+import { DemoGoodsEntity } from "../../entity/goods";
+import { DemoTenantService } from "../../service/tenant";
 
 /**
  * 示例
  */
 @CoolController({
   serviceApis: [
-    'use',
+    "use",
     {
-      method: 'test1',
-      summary: '不使用多租户', // 接口描述
+      method: "test1",
+      summary: "不使用多租户", // 接口描述
     },
-    'test2', // 也可以不设置summary
+    "test2", // 也可以不设置summary
   ],
   entity: DemoGoodsEntity,
   service: DemoXxxService,
 })
 export class AdminDemoTenantController extends BaseController {}
-
 ```
 
-在Service中
+在 Service 中
 
 ```ts
 /**
@@ -404,30 +405,26 @@ export class AdminDemoTenantController extends BaseController {}
  */
 @Provide()
 export class DemoXxxService extends BaseService {
-
   /**
    * 示例方法1
    */
   async test1(params) {
     console.log(params);
-    return 'test1';
+    return "test1";
   }
 
   /**
    * 示例方法2
    */
   async test2() {
-    return 'test2';
+    return "test2";
   }
-
 }
-
 ```
 
 ::: warning 注意
 `serviceApis` 注册为`Api`的请求方法是`POST`，所以`Service`层的方法参数需要通过`body`传递
 :::
-
 
 ### 重写 CRUD 实现
 
@@ -438,7 +435,7 @@ export class DemoXxxService extends BaseService {
 在模块新建 service 文件夹(名称非强制性)，再新建一个`service`实现，继承框架的`BaseService`
 
 ```ts
-import { Inject, Provide } from "@midwayjs/decorator";
+import { Inject, Provide } from "@midwayjs/core";
 import { BaseService } from "@cool-midway/core";
 import { InjectEntityModel } from "@midwayjs/orm";
 import { Repository } from "typeorm";
@@ -491,7 +488,7 @@ export class BaseSysMenuService extends BaseService {
 `CoolController`设置自己的服务实现
 
 ```ts
-import { Inject, Provide } from "@midwayjs/decorator";
+import { Inject } from "@midwayjs/core";
 import { CoolController, BaseController } from "@cool-midway/core";
 import { BaseSysMenuEntity } from "../../../entity/sys/menu";
 import { BaseSysMenuService } from "../../../service/sys/menu";
@@ -499,7 +496,6 @@ import { BaseSysMenuService } from "../../../service/sys/menu";
 /**
  * 菜单
  */
-@Provide()
 @CoolController({
   api: ["add", "delete", "update", "info", "list", "page"],
   entity: BaseSysMenuEntity,
@@ -516,7 +512,7 @@ export class BaseSysMenuController extends BaseController {
 我们经常有这样的需求：给某个请求地址打上标记，如忽略 token，忽略签名等。
 
 ```ts
-import { Get, Inject, Provide } from "@midwayjs/decorator";
+import { Get, Inject } from "@midwayjs/core";
 import {
   CoolController,
   BaseController,
@@ -528,7 +524,6 @@ import {
 /**
  * 测试给URL打标签
  */
-@Provide()
 @CoolController({
   api: [],
   entity: "",
@@ -561,7 +556,7 @@ export class DemoAppTagController extends BaseController {
 ```ts
 import { CoolUrlTagData, TagTypes } from "@cool-midway/core";
 import { IMiddleware } from "@midwayjs/core";
-import { Inject, Middleware } from "@midwayjs/decorator";
+import { Inject, Middleware } from "@midwayjs/core";
 import { NextFunction, Context } from "@midwayjs/koa";
 
 @Middleware()

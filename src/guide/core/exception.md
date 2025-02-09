@@ -1,6 +1,4 @@
-
-
-# 异常处理
+# 异常处理(Exception)
 
 框架自带有： `CoolCommException`、`CoolCoreException`、`CoolValidateException`
 
@@ -16,7 +14,7 @@ CoolCommException
 
 ```ts
 // 可以自定义返回消息
-throw new CoolCommException('用户不存在~');
+throw new CoolCommException("用户不存在~");
 ```
 
 ## 验证异常
@@ -31,7 +29,7 @@ CoolValidateException
 
 ```ts
 // 可以自定义返回消息
-throw new CoolValidateException('验证码不正确~');
+throw new CoolValidateException("验证码不正确~");
 ```
 
 ## 核心异常
@@ -46,7 +44,7 @@ CoolCoreException
 
 ```ts
 // 可以自定义返回消息
-throw new CoolCoreException('模块缺少配置文件~');
+throw new CoolCoreException("模块缺少配置文件~");
 ```
 
 ## 全局异常
@@ -55,7 +53,7 @@ throw new CoolCoreException('模块缺少配置文件~');
 
 ```json
 {
-    "code": 1001,
-    "message": "用户不存在"
+  "code": 1001,
+  "message": "用户不存在"
 }
 ```

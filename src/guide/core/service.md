@@ -14,7 +14,7 @@
 
 ```ts
 import { DemoGoodsEntity } from "./../entity/goods";
-import { Provide } from "@midwayjs/decorator";
+import { Provide } from "@midwayjs/core";
 import { BaseService } from "@cool-midway/core";
 import { InjectEntityModel } from "@midwayjs/typeorm";
 import { Repository } from "typeorm";
@@ -24,20 +24,20 @@ import { Repository } from "typeorm";
  */
 @Provide()
 export class DemoGoodsService extends BaseService {
-	@InjectEntityModel(DemoGoodsEntity)
-	demoGoodsEntity: Repository<DemoGoodsEntity>;
+  @InjectEntityModel(DemoGoodsEntity)
+  demoGoodsEntity: Repository<DemoGoodsEntity>;
 
-	/**
-	 * 新增
-	 * @param param
-	 * @returns
-	 */
-	async add(param: any) {
-		// 调用原本的add，如果不需要可以不用这样写，完全按照自己的新增逻辑写
-		const result = await super.add(param);
-		// 你自己的业务逻辑
-		return result;
-	}
+  /**
+   * 新增
+   * @param param
+   * @returns
+   */
+  async add(param: any) {
+    // 调用原本的add，如果不需要可以不用这样写，完全按照自己的新增逻辑写
+    const result = await super.add(param);
+    // 你自己的业务逻辑
+    return result;
+  }
 }
 ```
 
@@ -46,7 +46,7 @@ export class DemoGoodsService extends BaseService {
 ```ts
 import { DemoGoodsService } from "../../service/goods";
 import { DemoGoodsEntity } from "../../entity/goods";
-import { Body, Inject, Post, Provide } from "@midwayjs/decorator";
+import { Body, Inject, Post, Provide } from "@midwayjs/core";
 import { CoolController, BaseController } from "@cool-midway/core";
 import { InjectEntityModel } from "@midwayjs/typeorm";
 import { Repository } from "typeorm";
@@ -56,9 +56,9 @@ import { Repository } from "typeorm";
  */
 @Provide()
 @CoolController({
-	api: ["add", "delete", "update", "info", "list", "page"],
-	entity: DemoGoodsEntity,
-	service: DemoGoodsService
+  api: ["add", "delete", "update", "info", "list", "page"],
+  entity: DemoGoodsEntity,
+  service: DemoGoodsService,
 })
 export class AppDemoGoodsController extends BaseController {}
 ```
@@ -71,7 +71,7 @@ export class AppDemoGoodsController extends BaseController {}
 
 ```ts
 import { DemoGoodsEntity } from "./../entity/goods";
-import { Provide } from "@midwayjs/decorator";
+import { Provide } from "@midwayjs/core";
 import { BaseService } from "@cool-midway/core";
 import { InjectEntityModel } from "@midwayjs/typeorm";
 import { In, Repository } from "typeorm";
@@ -81,35 +81,35 @@ import { In, Repository } from "typeorm";
  */
 @Provide()
 export class DemoGoodsService extends BaseService {
-	@InjectEntityModel(DemoGoodsEntity)
-	demoGoodsEntity: Repository<DemoGoodsEntity>;
+  @InjectEntityModel(DemoGoodsEntity)
+  demoGoodsEntity: Repository<DemoGoodsEntity>;
 
-	async typeorm() {
-		// 新增单个，传入的参数字段在数据库中一定要存在
-		await this.demoGoodsEntity.insert({ title: "xxx" });
-		// 新增单个，传入的参数字段在数据库中可以不存在
-		await this.demoGoodsEntity.save({ title: "xxx" });
-		// 新增多个
-		await this.demoGoodsEntity.save([{ title: "xxx" }]);
-		// 查找单个
-		await this.demoGoodsEntity.findOneBy({ id: 1 });
-		// 查找多个
-		await this.demoGoodsEntity.findBy({ id: In([1, 2]) });
-		// 删除单个
-		await this.demoGoodsEntity.delete(1);
-		// 删除多个
-		await this.demoGoodsEntity.delete([1]);
-		// 根据ID更新
-		await this.demoGoodsEntity.update(1, { title: "xxx" });
-		// 根据条件更新
-		await this.demoGoodsEntity.update({ price: 20 }, { title: "xxx" });
-		// 多条件操作
-		await this.demoGoodsEntity
-			.createQueryBuilder()
-			.where("id = :id", { id: 1 })
-			.andWhere("price = :price", { price: 20 })
-			.getOne();
-	}
+  async typeorm() {
+    // 新增单个，传入的参数字段在数据库中一定要存在
+    await this.demoGoodsEntity.insert({ title: "xxx" });
+    // 新增单个，传入的参数字段在数据库中可以不存在
+    await this.demoGoodsEntity.save({ title: "xxx" });
+    // 新增多个
+    await this.demoGoodsEntity.save([{ title: "xxx" }]);
+    // 查找单个
+    await this.demoGoodsEntity.findOneBy({ id: 1 });
+    // 查找多个
+    await this.demoGoodsEntity.findBy({ id: In([1, 2]) });
+    // 删除单个
+    await this.demoGoodsEntity.delete(1);
+    // 删除多个
+    await this.demoGoodsEntity.delete([1]);
+    // 根据ID更新
+    await this.demoGoodsEntity.update(1, { title: "xxx" });
+    // 根据条件更新
+    await this.demoGoodsEntity.update({ price: 20 }, { title: "xxx" });
+    // 多条件操作
+    await this.demoGoodsEntity
+      .createQueryBuilder()
+      .where("id = :id", { id: 1 })
+      .andWhere("price = :price", { price: 20 })
+      .getOne();
+  }
 }
 ```
 
@@ -119,7 +119,7 @@ export class DemoGoodsService extends BaseService {
 
 ```ts
 import { DemoGoodsEntity } from "./../entity/goods";
-import { Provide } from "@midwayjs/decorator";
+import { Provide } from "@midwayjs/core";
 import { BaseService } from "@cool-midway/core";
 import { InjectEntityModel } from "@midwayjs/typeorm";
 import { Repository } from "typeorm";
@@ -129,15 +129,17 @@ import { Repository } from "typeorm";
  */
 @Provide()
 export class DemoGoodsService extends BaseService {
-	@InjectEntityModel(DemoGoodsEntity)
-	demoGoodsEntity: Repository<DemoGoodsEntity>;
+  @InjectEntityModel(DemoGoodsEntity)
+  demoGoodsEntity: Repository<DemoGoodsEntity>;
 
-	/**
-	 * 执行sql
-	 */
-	async sql(query) {
-		return this.nativeQuery("select * from demo_goods a where a.id = ?", [query.id]);
-	}
+  /**
+   * 执行sql
+   */
+  async sql(query) {
+    return this.nativeQuery("select * from demo_goods a where a.id = ?", [
+      query.id,
+    ]);
+  }
 }
 ```
 
@@ -145,7 +147,7 @@ export class DemoGoodsService extends BaseService {
 
 ```ts
 import { DemoGoodsEntity } from "./../entity/goods";
-import { Provide } from "@midwayjs/decorator";
+import { Provide } from "@midwayjs/core";
 import { BaseService } from "@cool-midway/core";
 import { InjectEntityModel } from "@midwayjs/typeorm";
 import { Repository } from "typeorm";
@@ -155,15 +157,19 @@ import { Repository } from "typeorm";
  */
 @Provide()
 export class DemoGoodsService extends BaseService {
-	@InjectEntityModel(DemoGoodsEntity)
-	demoGoodsEntity: Repository<DemoGoodsEntity>;
+  @InjectEntityModel(DemoGoodsEntity)
+  demoGoodsEntity: Repository<DemoGoodsEntity>;
 
-	/**
-	 * 执行分页sql
-	 */
-	async sqlPage(query) {
-		return this.sqlRenderPage("select * from demo_goods ORDER BY id ASC", query, false);
-	}
+  /**
+   * 执行分页sql
+   */
+  async sqlPage(query) {
+    return this.sqlRenderPage(
+      "select * from demo_goods ORDER BY id ASC",
+      query,
+      false
+    );
+  }
 }
 ```
 
@@ -171,7 +177,7 @@ export class DemoGoodsService extends BaseService {
 
 ```ts
 import { DemoGoodsEntity } from "./../entity/goods";
-import { Provide } from "@midwayjs/decorator";
+import { Provide } from "@midwayjs/core";
 import { BaseService } from "@cool-midway/core";
 import { InjectEntityModel } from "@midwayjs/typeorm";
 import { In, Repository } from "typeorm";
@@ -181,17 +187,17 @@ import { In, Repository } from "typeorm";
  */
 @Provide()
 export class DemoGoodsService extends BaseService {
-	@InjectEntityModel(DemoGoodsEntity)
-	demoGoodsEntity: Repository<DemoGoodsEntity>;
+  @InjectEntityModel(DemoGoodsEntity)
+  demoGoodsEntity: Repository<DemoGoodsEntity>;
 
-	/**
-	 * 执行entity分页
-	 */
-	async entityPage(query) {
-		const find = this.demoGoodsEntity.createQueryBuilder();
-		find.where("id = :id", { id: 1 });
-		return this.entityRenderPage(find, query);
-	}
+  /**
+   * 执行entity分页
+   */
+  async entityPage(query) {
+    const find = this.demoGoodsEntity.createQueryBuilder();
+    find.where("id = :id", { id: 1 });
+    return this.entityRenderPage(find, query);
+  }
 }
 ```
 
@@ -201,7 +207,7 @@ export class DemoGoodsService extends BaseService {
 
 ```ts
 import { DemoGoodsEntity } from "./../entity/goods";
-import { Provide } from "@midwayjs/decorator";
+import { Provide } from "@midwayjs/core";
 import { BaseService } from "@cool-midway/core";
 import { InjectEntityModel } from "@midwayjs/typeorm";
 import { Repository } from "typeorm";
@@ -211,20 +217,20 @@ import { Repository } from "typeorm";
  */
 @Provide()
 export class DemoGoodsService extends BaseService {
-	@InjectEntityModel(DemoGoodsEntity)
-	demoGoodsEntity: Repository<DemoGoodsEntity>;
+  @InjectEntityModel(DemoGoodsEntity)
+  demoGoodsEntity: Repository<DemoGoodsEntity>;
 
-	/**
-	 * 执行sql
-	 */
-	async sql(query) {
-		return this.nativeQuery(`
+  /**
+   * 执行sql
+   */
+  async sql(query) {
+    return this.nativeQuery(`
     select * from demo_goods a
       WHERE 1=1
       ${this.setSql(query.id, "and a.id = ?", [query.id])}
     ORDER BY id ASC
     `);
-	}
+  }
 }
 ```
 
@@ -234,7 +240,7 @@ export class DemoGoodsService extends BaseService {
 
 ```ts
 import { DemoGoodsEntity } from "./../entity/goods";
-import { Provide } from "@midwayjs/decorator";
+import { Provide } from "@midwayjs/core";
 import { BaseService } from "@cool-midway/core";
 import { InjectEntityModel } from "@midwayjs/typeorm";
 import { Repository } from "typeorm";
@@ -245,19 +251,19 @@ import * as md5 from "md5";
  */
 @Provide()
 export class DemoGoodsService extends BaseService {
-	@InjectEntityModel(DemoGoodsEntity)
-	demoGoodsEntity: Repository<DemoGoodsEntity>;
+  @InjectEntityModel(DemoGoodsEntity)
+  demoGoodsEntity: Repository<DemoGoodsEntity>;
 
-	/**
-	 * 修改之前
-	 * @param data
-	 * @param type
-	 */
-	async modifyBefore(data: any, type: "delete" | "update" | "add") {
-		if (type == "update") {
-			data.password = md5(data.password);
-		}
-	}
+  /**
+   * 修改之前
+   * @param data
+   * @param type
+   */
+  async modifyBefore(data: any, type: "delete" | "update" | "add") {
+    if (type == "update") {
+      data.password = md5(data.password);
+    }
+  }
 }
 ```
 
@@ -267,7 +273,7 @@ export class DemoGoodsService extends BaseService {
 
 ```ts
 import { DemoGoodsEntity } from "./../entity/goods";
-import { Provide } from "@midwayjs/decorator";
+import { Provide } from "@midwayjs/core";
 import { BaseService } from "@cool-midway/core";
 import { InjectEntityModel } from "@midwayjs/typeorm";
 import { Repository } from "typeorm";
@@ -278,17 +284,17 @@ import * as md5 from "md5";
  */
 @Provide()
 export class DemoGoodsService extends BaseService {
-	@InjectEntityModel(DemoGoodsEntity)
-	demoGoodsEntity: Repository<DemoGoodsEntity>;
+  @InjectEntityModel(DemoGoodsEntity)
+  demoGoodsEntity: Repository<DemoGoodsEntity>;
 
-	/**
-	 * 修改之后
-	 * @param data
-	 * @param type
-	 */
-	async modifyAfter(data: any, type: "delete" | "update" | "add") {
-		// 你想做的其他事情
-	}
+  /**
+   * 修改之后
+   * @param data
+   * @param type
+   */
+  async modifyAfter(data: any, type: "delete" | "update" | "add") {
+    // 你想做的其他事情
+  }
 }
 ```
 
@@ -303,14 +309,14 @@ export class DemoGoodsService extends BaseService {
 ```ts
 @Provide()
 export class XxxService extends BaseService {
-	@InjectEntityModel(XxxEntity)
-	xxxEntity: Repository<XxxEntity>;
+  @InjectEntityModel(XxxEntity)
+  xxxEntity: Repository<XxxEntity>;
 
-	@Init()
-	async init() {
-		await super.init();
-		// 设置实体
-		this.setEntity(this.xxxEntity);
-	}
+  @Init()
+  async init() {
+    await super.init();
+    // 设置实体
+    this.setEntity(this.xxxEntity);
+  }
 }
 ```

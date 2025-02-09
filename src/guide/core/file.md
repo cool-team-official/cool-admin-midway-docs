@@ -91,7 +91,7 @@ npm install @cool-midway/file --save
 `src/configuration.ts`
 
 ```ts
-import { Configuration, App } from "@midwayjs/decorator";
+import { Configuration, App } from "@midwayjs/core";
 import { join } from "path";
 import * as file from "@cool-midway/file";
 
@@ -112,7 +112,7 @@ export class ContainerLifeCycle {
 前端需要根据服务端配置的上传模式，切换自己的上传方式，获得上传模式
 
 ```ts
-import { Get, Inject, Post, Provide } from "@midwayjs/decorator";
+import { Get, Inject, Post, Provide } from "@midwayjs/core";
 import { CoolController, BaseController } from "@cool-midway/core";
 import { Context } from "koa";
 import { CoolFile } from "@cool-midway/file";
@@ -176,7 +176,7 @@ export default {
 `src/modules/demo/controller/app/file.ts`
 
 ```ts
-import { Get, Inject, Post, Provide } from "@midwayjs/decorator";
+import { Get, Inject, Post, Provide } from "@midwayjs/core";
 import { CoolController, BaseController } from "@cool-midway/core";
 import { Context } from "koa";
 import { CoolFile } from "@cool-midway/file";
@@ -255,7 +255,7 @@ authorization 这一项不可省略，严格按照截图所示配置，替换成
 `src/modules/demo/controller/app/file.ts`
 
 ```ts
-import { Get, Inject, Post, Provide } from "@midwayjs/decorator";
+import { Get, Inject, Post, Provide } from "@midwayjs/core";
 import { CoolController, BaseController } from "@cool-midway/core";
 import { Context } from "koa";
 import { CoolFile } from "@cool-midway/file";
@@ -414,7 +414,7 @@ cool: {
 `src/modules/demo/controller/app/file.ts`
 
 ```ts
-import { Get, Inject, Post, Provide } from "@midwayjs/decorator";
+import { Get, Inject, Post, Provide } from "@midwayjs/core";
 import { CoolController, BaseController } from "@cool-midway/core";
 import { Context } from "koa";
 import { CoolFile } from "@cool-midway/file";

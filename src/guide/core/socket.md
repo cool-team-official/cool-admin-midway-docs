@@ -1,4 +1,4 @@
-# 即时通讯
+# 即时通讯(Socket)
 
 `cool-admin`即时通讯功能基于[Socket.io(v4)](https://socket.io/docs/v4)开发，[midwayjs 官方 Socket.io 文档](http://midwayjs.org/docs/extensions/socketio)
 
@@ -10,17 +10,17 @@
 import * as socketio from "@midwayjs/socketio";
 
 @Configuration({
-	imports: [
-		// socketio http://www.midwayjs.org/docs/extensions/socketio
-		socketio
-	],
-	importConfigs: [join(__dirname, "./config")]
+  imports: [
+    // socketio http://www.midwayjs.org/docs/extensions/socketio
+    socketio,
+  ],
+  importConfigs: [join(__dirname, "./config")],
 })
 export class ContainerLifeCycle {
-	@App()
-	app: koa.Application;
+  @App()
+  app: koa.Application;
 
-	async onReady() {}
+  async onReady() {}
 }
 ```
 
@@ -37,51 +37,56 @@ import { createAdapter } from "@socket.io/redis-adapter";
 import Redis from "ioredis";
 
 const redis = {
-	host: "127.0.0.1",
-	port: 6379,
-	password: "",
-	db: 0
+  host: "127.0.0.1",
+  port: 6379,
+  password: "",
+  db: 0,
 };
 
 const pubClient = new Redis(redis);
 const subClient = pubClient.duplicate();
 
 export default {
-	// ...
-	// socketio
-	socketIO: {
-		upgrades: ["websocket"], // 可升级的协议
-		adapter: createAdapter(pubClient, subClient)
-	}
+  // ...
+  // socketio
+  socketIO: {
+    upgrades: ["websocket"], // 可升级的协议
+    adapter: createAdapter(pubClient, subClient),
+  },
 } as MidwayConfig;
 ```
 
 ## 服务端
 
 ```ts
-import { WSController, OnWSConnection, Inject, OnWSMessage } from "@midwayjs/decorator";
+import {
+  WSController,
+  OnWSConnection,
+  Inject,
+  OnWSMessage,
+} from "@midwayjs/core";
 import { Context } from "@midwayjs/socketio";
 /**
  * 测试
  */
 @WSController("/")
 export class HelloController {
-	@Inject()
-	ctx: Context;
+  @Inject()
+  ctx: Context;
 
-	// 客户端连接
-	@OnWSConnection()
-	async onConnectionMethod() {
-		console.log("on client connect", this.ctx.id);
-		console.log("参数", this.ctx.handshake.query);
-		this.ctx.emit("data", "连接成功");
-	}
+  // 客户端连接
+  @OnWSConnection()
+  async onConnectionMethod() {
+    console.log("on client connect", this.ctx.id);
+    console.log("参数", this.ctx.handshake.query);
+    this.ctx.emit("data", "连接成功");
+  }
 
-	// 消息事件
-	@OnWSMessage("myEvent")
-	async gotMessage(data) {
-		console.log("on data got", this.ctx.id, data);
-	}
+  // 消息事件
+  @OnWSMessage("myEvent")
+  async gotMessage(data) {
+    console.log("on data got", this.ctx.id, data);
+  }
 }
 ```
 
@@ -90,10 +95,14 @@ export class HelloController {
 ```ts
 const io = require("socket.io-client");
 
-const socket = io("http://127.0.0.1:8001?token=123");
+const socket = io("http://127.0.0.1:8001", {
+  auth: {
+    token: "xxx",
+  },
+});
 
 socket.on("data", (msg) => {
-	console.log("服务端消息", msg);
+  console.log("服务端消息", msg);
 });
 ```
 
@@ -106,9 +115,9 @@ socket.on("data", (msg) => {
 import { createRedisAdapter } from "@midwayjs/socketio";
 
 export default {
-	// ...
-	socketIO: {
-		adapter: createRedisAdapter({ host: "127.0.0.1", port: 6379 })
-	}
+  // ...
+  socketIO: {
+    adapter: createRedisAdapter({ host: "127.0.0.1", port: 6379 }),
+  },
 };
 ```

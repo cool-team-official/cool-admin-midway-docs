@@ -1,4 +1,4 @@
-# 权限管理
+# 权限管理(Authority)
 
 cool-admin 采用是是一种无状态的权限校验方式。[jwt](https://jwt.io/introduction), 通俗地讲他就是把用户的一些信息经过处理生成一段加密的字符串，后端解密到信息进行校验。而且这个信息是带有时效的。
 
@@ -105,7 +105,7 @@ admin 用户拥有所有的权限，无需配置，但是对于其他只拥有�
 `src/app/modules/base/middleware/authority.ts`
 
 ```ts
-import { App, Config, Middleware } from "@midwayjs/decorator";
+import { App, Config, Middleware } from "@midwayjs/core";
 import * as _ from "lodash";
 import { RESCODE } from "@cool-midway/core";
 import * as jwt from "jsonwebtoken";

@@ -22,21 +22,21 @@ configuration.ts
 import * as rpc from "@cool-midway/rpc";
 
 @Configuration({
-	imports: [
-		// rpc 微服务 远程调用
-		rpc,
-		{
-			component: info,
-			enabledEnvironment: ["local"]
-		}
-	],
-	importConfigs: [join(__dirname, "./config")]
+  imports: [
+    // rpc 微服务 远程调用
+    rpc,
+    {
+      component: info,
+      enabledEnvironment: ["local"],
+    },
+  ],
+  importConfigs: [join(__dirname, "./config")],
 })
 export class ContainerLifeCycle {
-	@App()
-	app: koa.Application;
+  @App()
+  app: koa.Application;
 
-	async onReady() {}
+  async onReady() {}
 }
 ```
 
@@ -45,8 +45,12 @@ export class ContainerLifeCycle {
 `src/service/goods`
 
 ```ts
-import { Provide } from "@midwayjs/decorator";
-import { BaseRpcService, CoolRpcService, CoolRpcTransaction } from "@cool-midway/rpc";
+import { Provide } from "@midwayjs/core";
+import {
+  BaseRpcService,
+  CoolRpcService,
+  CoolRpcTransaction,
+} from "@cool-midway/rpc";
 import { InjectEntityModel } from "@midwayjs/orm";
 import { QueryRunner, Repository } from "typeorm";
 import { DemoGoodsEntity } from "../entity/goods";
@@ -57,37 +61,37 @@ import { CoolCommException } from "@cool-midway/core";
  */
 @Provide()
 @CoolRpcService({
-	entity: DemoGoodsEntity,
-	method: ["add", "delete", "update", "info", "list", "page"]
+  entity: DemoGoodsEntity,
+  method: ["add", "delete", "update", "info", "list", "page"],
 })
 export class DemoGoodsService extends BaseRpcService {
-	@InjectEntityModel(DemoGoodsEntity)
-	demoGoodsEntity: Repository<DemoGoodsEntity>;
+  @InjectEntityModel(DemoGoodsEntity)
+  demoGoodsEntity: Repository<DemoGoodsEntity>;
 
-	/**
-	 * 测试
-	 */
-	async test(params) {
-		console.log(params);
-		return params;
-	}
+  /**
+   * 测试
+   */
+  async test(params) {
+    console.log(params);
+    return params;
+  }
 
-	/**
-	 * 分布式事务测试
-	 * @param rpcTransactionId 事务ID
-	 * @param queryRunner 事务执行器
-	 */
-	@CoolRpcTransaction()
-	async transaction(params, rpcTransactionId?, queryRunner?: QueryRunner) {
-		const data = {
-			title: "商品标题",
-			pic: "https://xxx",
-			price: 99.0,
-			type: 1
-		};
-		await queryRunner.manager.save(DemoGoodsEntity, data);
-		throw new CoolCommException("测试抛出异常回滚事务");
-	}
+  /**
+   * 分布式事务测试
+   * @param rpcTransactionId 事务ID
+   * @param queryRunner 事务执行器
+   */
+  @CoolRpcTransaction()
+  async transaction(params, rpcTransactionId?, queryRunner?: QueryRunner) {
+    const data = {
+      title: "商品标题",
+      pic: "https://xxx",
+      price: 99.0,
+      type: 1,
+    };
+    await queryRunner.manager.save(DemoGoodsEntity, data);
+    throw new CoolCommException("测试抛出异常回滚事务");
+  }
 }
 ```
 
@@ -97,15 +101,15 @@ export class DemoGoodsService extends BaseRpcService {
 
 ```ts
 config.cool = {
-	rpc: {
-		name: "服务名称，服务名称整个集群确保唯一"
-	},
-	redis: {
-		host: "127.0.0.1",
-		password: "",
-		port: 6379,
-		db: 0
-	}
+  rpc: {
+    name: "服务名称，服务名称整个集群确保唯一",
+  },
+  redis: {
+    host: "127.0.0.1",
+    password: "",
+    port: 6379,
+    db: 0,
+  },
 };
 ```
 
@@ -115,23 +119,23 @@ config.cool = {
 
 ```ts
 config.cool = {
-	rpc: {
-		name: "服务名称",
-		//
-		redis: {
-			host: "192.168.10.14",
-			password: "",
-			port: 6379,
-			db: 1
-		}
-	},
-	// 缓存的redis
-	redis: {
-		host: "192.168.10.14",
-		password: "",
-		port: 6379,
-		db: 0
-	}
+  rpc: {
+    name: "服务名称",
+    //
+    redis: {
+      host: "192.168.10.14",
+      password: "",
+      port: 6379,
+      db: 1,
+    },
+  },
+  // 缓存的redis
+  redis: {
+    host: "192.168.10.14",
+    password: "",
+    port: 6379,
+    db: 0,
+  },
 };
 ```
 
@@ -139,30 +143,30 @@ redis cluster 方式
 
 ```ts
 [
-	{
-		host: "192.168.0.103",
-		port: 7000
-	},
-	{
-		host: "192.168.0.103",
-		port: 7001
-	},
-	{
-		host: "192.168.0.103",
-		port: 7002
-	},
-	{
-		host: "192.168.0.103",
-		port: 7003
-	},
-	{
-		host: "192.168.0.103",
-		port: 7004
-	},
-	{
-		host: "192.168.0.103",
-		port: 7005
-	}
+  {
+    host: "192.168.0.103",
+    port: 7000,
+  },
+  {
+    host: "192.168.0.103",
+    port: 7001,
+  },
+  {
+    host: "192.168.0.103",
+    port: 7002,
+  },
+  {
+    host: "192.168.0.103",
+    port: 7003,
+  },
+  {
+    host: "192.168.0.103",
+    port: 7004,
+  },
+  {
+    host: "192.168.0.103",
+    port: 7005,
+  },
 ];
 ```
 
@@ -174,12 +178,12 @@ Body
 
 ```json
 {
-	"name": "goods", // 服务的名称
-	"service": "goodsService", // 具体的service
-	"method": "page", // 调用service的方法
-	"params": {
-		// 参数
-	}
+  "name": "goods", // 服务的名称
+  "service": "goodsService", // 具体的service
+  "method": "page", // 调用service的方法
+  "params": {
+    // 参数
+  }
 }
 ```
 
@@ -202,14 +206,14 @@ import { CoolRpcEvent, CoolRpcEventHandler } from "@cool-midway/rpc";
 
 @CoolRpcEvent()
 export class TestRpcEvent {
-	/**
-	 * 监听事件
-	 * @param params 事件参数
-	 */
-	@CoolRpcEventHandler()
-	async test(params) {
-		console.log("收到事件参数", params);
-	}
+  /**
+   * 监听事件
+   * @param params 事件参数
+   */
+  @CoolRpcEventHandler()
+  async test(params) {
+    console.log("收到事件参数", params);
+  }
 }
 ```
 
@@ -273,59 +277,64 @@ export class TestRpcEvent {
 #### 示例
 
 ```ts
-import { App, Inject, Provide } from "@midwayjs/decorator";
+import { App, Inject, Provide } from "@midwayjs/core";
 import { DemoGoodsEntity } from "../entity/goods";
 import { IMidwayApplication } from "@midwayjs/core";
-import { BaseRpcService, CoolRpc, CoolRpcService, CoolRpcTransaction } from "@cool-midway/rpc";
+import {
+  BaseRpcService,
+  CoolRpc,
+  CoolRpcService,
+  CoolRpcTransaction,
+} from "@cool-midway/rpc";
 import { QueryRunner } from "typeorm";
 
 @Provide()
 @CoolRpcService({
-	entity: DemoGoodsEntity,
-	method: ["info", "add", "page"]
+  entity: DemoGoodsEntity,
+  method: ["info", "add", "page"],
 })
 export class DemoRpcService extends BaseRpcService {
-	@App()
-	app: IMidwayApplication;
+  @App()
+  app: IMidwayApplication;
 
-	@Inject()
-	rpc: CoolRpc;
+  @Inject()
+  rpc: CoolRpc;
 
-	/**
-	 * 分布式事务
-	 * @param params 方法参数
-	 * @param rpcTransactionId 无需调用者传参， 本次事务的ID，ID会自动注入无需调用者传参
-	 * @param queryRunner 无需调用者传参，操作数据库，需要用queryRunner操作数据库，才能统一提交或回滚事务
-	 */
-	// 注解启用分布式事务，参数可以指定事务类型
-	@CoolRpcTransaction()
-	async transaction(params, rpcTransactionId?, queryRunner?: QueryRunner) {
-		console.log("获得的参数", params);
-		const data = {
-			title: "商品标题",
-			pic: "https://xxx",
-			price: 99.0,
-			type: 1
-		};
-		await queryRunner.manager.save(DemoGoodsEntity, data);
+  /**
+   * 分布式事务
+   * @param params 方法参数
+   * @param rpcTransactionId 无需调用者传参， 本次事务的ID，ID会自动注入无需调用者传参
+   * @param queryRunner 无需调用者传参，操作数据库，需要用queryRunner操作数据库，才能统一提交或回滚事务
+   */
+  // 注解启用分布式事务，参数可以指定事务类型
+  @CoolRpcTransaction()
+  async transaction(params, rpcTransactionId?, queryRunner?: QueryRunner) {
+    console.log("获得的参数", params);
+    const data = {
+      title: "商品标题",
+      pic: "https://xxx",
+      price: 99.0,
+      type: 1,
+    };
+    await queryRunner.manager.save(DemoGoodsEntity, data);
 
-		// 将事务id传给调用的远程服务方法
-		await this.rpc.call("goods", "demoGoodsService", "transaction", {
-			rpcTransactionId
-		});
-	}
+    // 将事务id传给调用的远程服务方法
+    await this.rpc.call("goods", "demoGoodsService", "transaction", {
+      rpcTransactionId,
+    });
+  }
 
-	async info(params) {
-		return params;
-	}
-	async getUser() {
-		return {
-			uid: "123",
-			username: "mockedName",
-			phone: "12345678901",
-			email: "xxx.xxx@xxx.com"
-		};
-	}
+  async info(params) {
+    return params;
+  }
+  async getUser() {
+    return {
+      uid: "123",
+      username: "mockedName",
+      phone: "12345678901",
+      email: "xxx.xxx@xxx.com",
+    };
+  }
 }
 ```
 

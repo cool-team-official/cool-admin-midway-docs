@@ -8,6 +8,8 @@
  ├── modules
  │   └── base(基础的权限管理系统)
  │   │    └── controller(api接口)
+ │   │    │    └── admin(后台管理接口)
+ │   │    │    └── app(应用接口，如小程序APP等)
  │   │    └── dto(参数校验)
  │   │    └── entity(实体类)
  │   │    └── middleware(中间件)
@@ -69,12 +71,12 @@ config.ts 的配置文件是必须的，有几个必填项描述着模块的功�
 
 ```json
 {
-	"dict_type": [
-		{
-			"name": "升级类型",
-			"key": "upgradeType"
-		}
-	]
+  "dict_type": [
+    {
+      "name": "升级类型",
+      "key": "upgradeType"
+    }
+  ]
 }
 ```
 
@@ -82,32 +84,32 @@ config.ts 的配置文件是必须的，有几个必填项描述着模块的功�
 
 ```json
 {
-	"dict_type": [
-		{
-			"name": "升级类型",
-			"key": "upgradeType",
-			"@childDatas": {
-				"dict_info": [
-					{
-						"typeId": "@id",
-						"name": "安卓",
-						"orderNum": 1,
-						"remark": null,
-						"parentId": null,
-						"value": "0"
-					},
-					{
-						"typeId": "@id",
-						"name": "IOS",
-						"orderNum": 1,
-						"remark": null,
-						"parentId": null,
-						"value": "1"
-					}
-				]
-			}
-		}
-	]
+  "dict_type": [
+    {
+      "name": "升级类型",
+      "key": "upgradeType",
+      "@childDatas": {
+        "dict_info": [
+          {
+            "typeId": "@id",
+            "name": "安卓",
+            "orderNum": 1,
+            "remark": null,
+            "parentId": null,
+            "value": "0"
+          },
+          {
+            "typeId": "@id",
+            "name": "IOS",
+            "orderNum": 1,
+            "remark": null,
+            "parentId": null,
+            "value": "1"
+          }
+        ]
+      }
+    }
+  ]
 }
 ```
 
@@ -119,30 +121,30 @@ config.ts 的配置文件是必须的，有几个必填项描述着模块的功�
 
 ```json
 [
-	{
-		"name": "应用管理",
-		"router": null,
-		"perms": null,
-		"type": 0,
-		"icon": "icon-app",
-		"orderNum": 2,
-		"viewPath": null,
-		"keepAlive": true,
-		"isShow": true,
-		"childMenus": [
-			{
-				"name": "套餐管理",
-				"router": "/app/goods",
-				"perms": null,
-				"type": 1,
-				"icon": "icon-goods",
-				"orderNum": 0,
-				"viewPath": "modules/app/views/goods.vue",
-				"keepAlive": true,
-				"isShow": true
-			}
-		]
-	}
+  {
+    "name": "应用管理",
+    "router": null,
+    "perms": null,
+    "type": 0,
+    "icon": "icon-app",
+    "orderNum": 2,
+    "viewPath": null,
+    "keepAlive": true,
+    "isShow": true,
+    "childMenus": [
+      {
+        "name": "套餐管理",
+        "router": "/app/goods",
+        "perms": null,
+        "type": 1,
+        "icon": "icon-goods",
+        "orderNum": 0,
+        "viewPath": "modules/app/views/goods.vue",
+        "keepAlive": true,
+        "isShow": true
+      }
+    ]
+  }
 ]
 ```
 

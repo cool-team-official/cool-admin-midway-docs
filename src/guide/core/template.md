@@ -5,7 +5,7 @@
 框架内置的模板渲染引擎为[ejs](https://ejs.bootcss.com/)
 
 ::: tip 提示
-目前较为流行的是前后端分离的方式，模板引擎更适用于有seo需求的应用
+目前较为流行的是前后端分离的方式，模板引擎更适用于有 seo 需求的应用
 :::
 
 #### ejs
@@ -15,25 +15,24 @@
 `src/welcome.ts`
 
 ```ts
-import { Controller, Get, Inject } from '@midwayjs/decorator';
-import { Context } from '@midwayjs/koa';
+import { Controller, Get, Inject } from "@midwayjs/core";
+import { Context } from "@midwayjs/koa";
 
 /**
  * 欢迎界面
  */
-@Controller('/')
+@Controller("/")
 export class WelcomeController {
   @Inject()
   ctx: Context;
 
-  @Get('/')
+  @Get("/")
   public async welcome() {
-    await this.ctx.render('welcome', {
-      text: 'HELLO COOL-ADMIN 5.x 一个项目只用COOL就够了！！！',
+    await this.ctx.render("welcome", {
+      text: "HELLO COOL-ADMIN 5.x 一个项目只用COOL就够了！！！",
     });
   }
 }
-
 ```
 
 `src/app/view`
@@ -61,9 +60,6 @@ export class WelcomeController {
 
 ```
 
-
 ## 其他
 
 需要使用其他模板引擎，参考[midwayjs 模板渲染](http://www.midwayjs.org/docs/extensions/render)
-
-

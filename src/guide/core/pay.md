@@ -25,7 +25,7 @@ npm install @cool-midway/pay
 `src/configuration.ts`
 
 ```ts
-import { App, Configuration } from "@midwayjs/decorator";
+import { App, Configuration } from "@midwayjs/core";
 import { ILifeCycle, IMidwayContainer } from "@midwayjs/core";
 import { Application } from "egg";
 import * as orm from "@midwayjs/orm";
@@ -82,7 +82,7 @@ config.cool = {
 `src/configuration.ts`
 
 ```ts
-import { App, Configuration } from "@midwayjs/decorator";
+import { App, Configuration } from "@midwayjs/core";
 import { ILifeCycle, IMidwayContainer } from "@midwayjs/core";
 import { Application } from "egg";
 import * as orm from "@midwayjs/orm";
@@ -207,7 +207,7 @@ export class AppOrderPayController extends BaseController {
 `Service`
 
 ```ts
-import { Config, Inject, Provide } from "@midwayjs/decorator";
+import { Config, Inject, Provide } from "@midwayjs/core";
 import { BaseService, CoolCommException } from "@cool-midway/core";
 import { InjectEntityModel } from "@midwayjs/typeorm";
 import { Repository } from "typeorm";
