@@ -16,7 +16,7 @@
 
 - 拉取最新的代码；
 - 复制原有项目你特有的模块（非框架自带的模块）；
-- 利用 vscode 等工具，全局搜索`@midwayjs/core`，替换为`@midwayjs/core`；
+- 利用 vscode 等工具，全局搜索`@midwayjs/decorator`，替换为`@midwayjs/core`；
 - 检查原有项目框架中的模块的改动，比如 base 模块，如若有做修改，根据改动内容进行调整；
 - [可选]从 v8.0 开始 BaseEntity 从`@cool-midway/core`迁移到`base`模块的`entity/base.ts`中， 原本的`@cool-midway/core`也保留了， 你可以根据需要选择使用；
 

@@ -68,7 +68,7 @@ export class AdminDemoGoodsController extends BaseController {}
 
 ## 3、Cursor 支持
 
-Cool Admin 针对全球爆火的[Cursor](https://www.cursor.com)编辑器专门做了适配，支持在编辑器中直接调用大模型进行代码的编写，支持代码的自动补全、代码的自动生成、代码的自动优化等功能。
+Cool Admin 针对全球爆火的[Cursor Ai代码编辑器](https://www.cursor.com)编辑器专门做了适配，支持在编辑器中直接调用大模型进行代码的编写，支持代码的自动补全、代码的自动生成、代码的自动优化等功能。
 
 针对 Cursor 的配置`.cursor/rules` 文件夹和`.cursorrules` 文件。
 

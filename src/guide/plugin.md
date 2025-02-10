@@ -59,6 +59,10 @@ export class OpenDemoPluginController extends BaseController {
 
 ### 3、配置
 
+配置是通过后台管理系统插件管理配置的，不是写在代码中！！！
+
+![](/admin/node/plugin-config.png){data-zoomable}
+
 有时候开发时的配置和生产环境的配置是不一样的，我们可以通过配置文件来实现。
 
 例如原本的配置文件是这样的

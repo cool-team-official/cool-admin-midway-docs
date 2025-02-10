@@ -12,7 +12,7 @@ midway 数据库文档：[https://www.midwayjs.org/docs/extensions/orm](https://
 
 支持`Mysql`、`PostgreSQL`、`Sqlite`三种数据库
 
-#### Mysql
+### Mysql
 
 `src/config/config.local.ts`
 
@@ -46,7 +46,7 @@ export default {
 } as MidwayConfig;
 ```
 
-#### PostgreSQL
+### PostgreSQL
 
 需要先安装驱动
 
@@ -86,7 +86,7 @@ export default {
 } as MidwayConfig;
 ```
 
-#### Sqlite
+### Sqlite
 
 需要先安装驱动
 

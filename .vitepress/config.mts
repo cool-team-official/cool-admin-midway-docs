@@ -45,7 +45,7 @@ export default defineConfig({
     editLink: {
       text: "在GitHub上编辑",
       pattern:
-        "https://github.com/cool-team-official/cool-admin-go-next-docs/blob/main/:path",
+        "https://github.com/cool-team-official/cool-admin-midway-docs/blob/main/:path",
     },
     // https://vitepress.dev/reference/default-theme-config
     nav: [

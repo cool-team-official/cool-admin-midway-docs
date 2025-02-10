@@ -16,6 +16,39 @@
 
 多租户的数据隔离有许多种方案，但最为常见的是以列进行隔离的方式。Cool Admin 通过在`BaseEntity`中加入指定的列（租户ID `tenantId`）对数据进行隔离。
 
+如果登录的用户`token`信息有携带`tenantId`，则框架会自动注入`tenantId`。
+
+`src/modules/base/service/sys/login.ts`
+```ts
+/**
+ * 生成token
+ * @param user 用户对象
+ * @param roleIds 角色集合
+ * @param expire 过期
+ * @param isRefresh 是否是刷新
+ */
+async generateToken(user, roleIds, expire, isRefresh?) {
+  await this.midwayCache.set(
+    `admin:passwordVersion:${user.id}`,
+    user.passwordV
+  );
+  const tokenInfo = {
+    isRefresh: false,
+    roleIds,
+    username: user.username,
+    userId: user.id,
+    passwordVersion: user.passwordV,
+    tenantId: user['tenantId'],
+  };
+  if (isRefresh) {
+    tokenInfo.isRefresh = true;
+  }
+  return jwt.sign(tokenInfo, this.coolConfig.jwt.secret, {
+    expiresIn: expire,
+  });
+}
+```
+
 ::: tip 小贴士
 
 v8.0之后，`BaseEntity`已经从`cool-midway/core`中移动至`src/modules/base/entity/base.ts`，方便开发者扩展定制
@@ -172,3 +205,21 @@ export class DemoTenantService extends BaseService {
 }
 
 ```
+
+### 3、忽略url和用户
+
+::: tip 小贴士
+
+默认以下url和用户不会进行多租户过滤(具体前往`src/modules/base/db/tenant.ts`查看)
+
+url：
+- /admin/base/open/login
+- /admin/base/comm/person
+- /admin/base/comm/permmenu
+- /admin/dict/info/data
+
+用户：
+- admin
+
+:::
+

@@ -6,7 +6,7 @@
 
 [7.x 升级方案](/src/todo/upgrade.html)
 
-- 适配[Cursor](https://www.cursor.com/)，使其对 cool-admin 有更好的支持[详情](/src/guide/ai.html#_3、cursor-支持)；
+- 适配[Cursor Ai代码编辑器](https://www.cursor.com/)，使其对 cool-admin 有更好的支持[详情](/src/guide/ai.html#_3、cursor-支持)；
 - 支持多租户，全局动态注入查询条件[详情](/src/guide/core/tenant.html)；
 - 支持多语言，基于大模型自动翻译，无需更改原有代码[详情](/src/guide/core/i18n.html)；
 - 支持原生打包，打包成`exe`等安装包，打包完可以直接运行在`windows`、`mac`、`linux`等操作系统上[详情](/src/guide/core/pkg.html)；
