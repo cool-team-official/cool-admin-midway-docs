@@ -28,7 +28,7 @@ npm install @cool-midway/pay
 import { App, Configuration } from "@midwayjs/core";
 import { ILifeCycle, IMidwayContainer } from "@midwayjs/core";
 import { Application } from "egg";
-import * as orm from "@midwayjs/orm";
+import * as orm from "@@midwayjs/typeorm";
 import * as cool from "@cool-midway/core";
 import * as pay from "@cool-midway/pay";
 
@@ -85,7 +85,7 @@ config.cool = {
 import { App, Configuration } from "@midwayjs/core";
 import { ILifeCycle, IMidwayContainer } from "@midwayjs/core";
 import { Application } from "egg";
-import * as orm from "@midwayjs/orm";
+import * as orm from "@@midwayjs/typeorm";
 import * as cool from "@cool-midway/core";
 import * as pay from "@cool-midway/pay";
 

@@ -51,7 +51,7 @@ import {
   CoolRpcService,
   CoolRpcTransaction,
 } from "@cool-midway/rpc";
-import { InjectEntityModel } from "@midwayjs/orm";
+import { InjectEntityModel } from "@@midwayjs/typeorm";
 import { QueryRunner, Repository } from "typeorm";
 import { DemoGoodsEntity } from "../entity/goods";
 import { CoolCommException } from "@cool-midway/core";

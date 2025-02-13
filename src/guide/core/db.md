@@ -129,7 +129,7 @@ export default {
 ```ts
 import { Inject, Provide } from "@midwayjs/core";
 import { BaseService, CoolTransaction } from "@cool-midway/core";
-import { InjectEntityModel } from "@midwayjs/orm";
+import { InjectEntityModel } from "@@midwayjs/typeorm";
 import { Repository, QueryRunner } from "typeorm";
 import { DemoAppGoodsEntity } from "../entity/goods";
 

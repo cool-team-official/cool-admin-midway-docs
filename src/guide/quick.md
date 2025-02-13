@@ -359,7 +359,7 @@ yarn dev
 `src/modules/demo/entity/goods.ts`
 
 ```ts
-import { EntityModel } from "@midwayjs/orm";
+import { EntityModel } from "@@midwayjs/typeorm";
 import { BaseEntity } from "@cool-midway/core";
 import { Column } from "typeorm";
 

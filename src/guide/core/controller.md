@@ -437,7 +437,7 @@ export class DemoXxxService extends BaseService {
 ```ts
 import { Inject, Provide } from "@midwayjs/core";
 import { BaseService } from "@cool-midway/core";
-import { InjectEntityModel } from "@midwayjs/orm";
+import { InjectEntityModel } from "@@midwayjs/typeorm";
 import { Repository } from "typeorm";
 import { BaseSysMenuEntity } from "../../entity/sys/menu";
 import * as _ from "lodash";
