@@ -6,6 +6,7 @@
 
 [7.x 升级方案](/src/todo/upgrade.html)
 
+- 更强大的 Ai 自动编码([基于DeepSeek R1](https://www.deepseek.com/))，支持直接生成整个模块甚至整个系统，更加智能可靠快速，[详情](/src/guide/ai.html)；
 - 适配[Cursor Ai代码编辑器](https://www.cursor.com/)，使其对 cool-admin 有更好的支持[详情](/src/guide/ai.html#_3、cursor-支持)；
 - 支持多租户，全局动态注入查询条件[详情](/src/guide/core/tenant.html)；
 - 支持多语言，基于大模型自动翻译，无需更改原有代码[详情](/src/guide/core/i18n.html)；
@@ -16,7 +17,6 @@
 - 完善`@CoolController`注解，新增`fieldLike`支持区分字段模糊查询，新增`serviceApis`直接将 service 方法注册为接口[详情](/src/guide/core/controller.html#服务注册成-api)；
 - Entity 字段支持配置字典和可选项[详情](/src/guide/core/db.html#配置字典和可选项-8-x-新增)；
 - 优化了`本地文件上传`、`插件存储方式`、`typeorm的一些小坑`、`自动路由`、`混淆打包`、`Cursor提示优化`等等 N 多内容和细节；
-- [开发中...]更强大的 Ai 代码自动编码，支持直接生成整个模块，包括前后端代码，更加智能可靠；
 
 ## v7.1.2(2024-12-28)
 
