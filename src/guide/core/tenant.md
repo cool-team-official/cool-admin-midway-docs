@@ -199,7 +199,7 @@ export class DemoTenantService extends BaseService {
   async invalid() {
     // 自定义sql，不进行多租户过滤
     await this.nativeQuery('select * from demo_goods');
-    // 自定义分页sql，进行多租户过滤
+    // 自定义分页sql，不进行多租户过滤
     await this.sqlRenderPage('select * from demo_goods', {});
   }
 }
