@@ -89,7 +89,7 @@ git clone https://gitee.com/cool-team-official/cool-admin-midway.git
 
 ## 自动格式化
 
-1、vscode 按照`EsLint`插件；
+1、vscode 安装`EsLint`插件；
 2、打开 vscode 的`setting.json`, 文件/首选项/设置/打开设置 json/, 配置保存自动格式化：
 
 ```json
