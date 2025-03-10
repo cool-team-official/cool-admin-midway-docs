@@ -28,7 +28,7 @@ Ai生成的代码偶尔有报错，自己稍微调整下，不意味着这个代
 
 [演示地址](https://cool-js.com/ai/code)
 
-[B 站视频教程](https://www.bilibili.com/video/BV1Hm421g7Br/?)
+[B 站视频教程](https://www.bilibili.com/video/BV13WPNeqEzX)
 
 ## 2、半自动
 
