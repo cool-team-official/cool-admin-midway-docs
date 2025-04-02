@@ -11,7 +11,7 @@ cool-admin 要求的`es>=8.x`
 ### 安装
 
 ```shell
-yarn add @cool-midway/es
+pnpm add @cool-midway/es
 ```
 
 ### 配置
