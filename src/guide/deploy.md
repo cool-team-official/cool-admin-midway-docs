@@ -127,6 +127,13 @@ server
 
         add_header X-Cache $upstream_cache_status;
 
+        # SSE特定配置，需要流式响应必备
+        proxy_buffering off;
+        proxy_cache off;
+        proxy_http_version 1.1;
+        proxy_set_header Connection '';
+        chunked_transfer_encoding off;
+        
         #expires 12h;
     }
 
