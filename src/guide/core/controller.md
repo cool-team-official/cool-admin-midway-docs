@@ -428,7 +428,7 @@ export class DemoXxxService extends BaseService {
 
 ### 重写 CRUD 实现
 
-在实际开发过程中，除了这些通用的接口可以满足大部分的需求，但是也有一些特殊的需求无法满足用户要求，这个时候也可以重写`add` `delete` `update` `info` `list` `page` 的实现
+在实际开发过程中，除了这些通用的接口可以满足大部分的需求，但是也有一些特殊的需求无法满足用户要求，这个时候也可以重写`add` `delete` `update` `info` `list` `page` 的实现。其中 `info` 的请求方法是 `GET` ,其它是 `POST` 。
 
 #### 编写 service
 
